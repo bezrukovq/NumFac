@@ -19,6 +19,10 @@ plugins {
     id("io.gitlab.arturbosch.detekt").version("1.0.0-RC12")
 }
 
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.0'
+}
+
 detekt {
     toolVersion = "1.0.0-RC12"
     input = files("src/main/kotlin")
