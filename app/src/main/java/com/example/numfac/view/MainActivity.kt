@@ -3,6 +3,7 @@ package com.example.numfac.view
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import com.example.numfac.R
+import com.example.numfac.view.fragments.RecyclerFragment
 
 class MainActivity : AppCompatActivity(){
 
