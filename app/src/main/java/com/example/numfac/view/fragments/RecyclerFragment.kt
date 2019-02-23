@@ -7,8 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.example.numfac.R
+import kotlinx.android.synthetic.main.fragment_recycler.*
 
 @SuppressLint("Registered")
 class RecyclerFragment : Fragment() {
@@ -25,14 +25,16 @@ class RecyclerFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.fragment_recycler, container, false)
+        return inflater.inflate(R.layout.fragment_recycler, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
         recyclerAdapter = RecyclerAdapter {onItemClick(it)}
         val manager = LinearLayoutManager(context)
-        val rv = v.findViewById<RecyclerView>(R.id.recycler_view)
-        rv.adapter = recyclerAdapter
+        recycler_view.adapter = recyclerAdapter
         recyclerAdapter.list = arrayListOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
-        rv.layoutManager = manager
-        return v
+        recycler_view.layoutManager = manager
     }
 
     private fun onItemClick(int: Int) {
@@ -41,6 +43,5 @@ class RecyclerFragment : Fragment() {
             ?.addToBackStack("JoJo")
             ?.replace(R.id.container, NumberDetailsFragment.newInstance(int))
             ?.commit()
-
     }
 }
