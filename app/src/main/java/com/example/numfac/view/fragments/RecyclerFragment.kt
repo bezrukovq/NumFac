@@ -8,23 +8,15 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.numfac.R
+import com.example.numfac.model.NumFacModel
+import com.example.numfac.presenter.DateListPresenter
 import kotlinx.android.synthetic.main.fragment_recycler.*
-import java.util.*
 
 @SuppressLint("Registered")
-class RecyclerFragment : Fragment() {
+class RecyclerFragment : Fragment(), DateListView {
 
     private lateinit var recyclerAdapter: RecyclerAdapter
-
-    companion object {
-        private const val COUNTER = 9
-        fun newInstance(): RecyclerFragment {
-            val args = Bundle()
-            val fragment = RecyclerFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
+    private val dateListPresenter = DateListPresenter(NumFacModel(), this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_recycler, container, false)
@@ -35,23 +27,28 @@ class RecyclerFragment : Fragment() {
         recyclerAdapter = RecyclerAdapter { onItemClick(it) }
         val manager = LinearLayoutManager(context)
         recycler_view.adapter = recyclerAdapter
-        recyclerAdapter.list = getDateList()
         recycler_view.layoutManager = manager
+        dateListPresenter.setDateList()
     }
 
     private fun onItemClick(int: Int) {
         activity?.supportFragmentManager
             ?.beginTransaction()
             ?.addToBackStack("JoJo")
-            ?.replace(R.id.container, NumberDetailsFragment.newInstance(int))
+            ?.replace(R.id.container, DateDetailsFragment.newInstance(int))
             ?.commit()
     }
 
-    private fun getDateList(): ArrayList<Int> {
-        val list = ArrayList<Int>()
-        val today = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
-        for (item: Int in today..today + COUNTER)
-            list.add(item)
-        return list
+    override fun showDateList(dataList: List<Int>) {
+        recyclerAdapter.list = dataList
+    }
+
+    companion object {
+        fun newInstance(): RecyclerFragment {
+            val args = Bundle()
+            val fragment = RecyclerFragment()
+            fragment.arguments = args
+            return fragment
+        }
     }
 }

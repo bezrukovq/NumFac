@@ -1,10 +1,9 @@
-package com.example.numfac.view
+package com.example.numfac.view.fragments
 
 import com.example.numfac.entity.Date
 
-interface View {
+interface DateView {
     fun showFac(date: Date)
-
     fun showProgress()
     fun hideProgress()
 }

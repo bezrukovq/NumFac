@@ -17,6 +17,6 @@ class RecyclerAdapter(private var onItemClick: (Int) -> Unit) : RecyclerView.Ada
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.bindViews(list[position])
-        holder.itemView.setOnClickListener { onItemClick(position) }
+        holder.itemView.setOnClickListener { onItemClick(list[position]) }
     }
 }

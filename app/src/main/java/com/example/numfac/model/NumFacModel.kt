@@ -7,6 +7,7 @@ import io.reactivex.schedulers.Schedulers
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import java.util.*
 
 open class NumFacModel{
 
@@ -17,6 +18,14 @@ open class NumFacModel{
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
 
+    fun getDateList(): List<Int>{
+        val list = ArrayList<Int>()
+        val today = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
+        for (item: Int in today..today + COUNTER)
+            list.add(item)
+        return list
+    }
+
     companion object {
         fun createApi(): NumFacApiService {
             val retrofit = Retrofit.Builder()
@@ -26,5 +35,6 @@ open class NumFacModel{
                 .build()
             return retrofit.create(NumFacApiService::class.java);
         }
+        private const val COUNTER = 9
     }
 }
