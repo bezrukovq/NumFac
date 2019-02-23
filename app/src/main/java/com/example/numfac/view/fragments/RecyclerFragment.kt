@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.numfac.R
 import kotlinx.android.synthetic.main.fragment_recycler.*
+import java.util.*
 
 @SuppressLint("Registered")
 class RecyclerFragment : Fragment() {
@@ -33,7 +34,7 @@ class RecyclerFragment : Fragment() {
         recyclerAdapter = RecyclerAdapter {onItemClick(it)}
         val manager = LinearLayoutManager(context)
         recycler_view.adapter = recyclerAdapter
-        recyclerAdapter.list = arrayListOf(1, 2, 3, 4, 5, 6, 7, 8, 9)
+        recyclerAdapter.list = getDateList()
         recycler_view.layoutManager = manager
     }
 
@@ -43,5 +44,13 @@ class RecyclerFragment : Fragment() {
             ?.addToBackStack("JoJo")
             ?.replace(R.id.container, NumberDetailsFragment.newInstance(int))
             ?.commit()
+    }
+
+    fun getDateList(): ArrayList<Int>{
+        val list = ArrayList<Int>()
+        val today = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
+        for (item: Int in today..today+9)
+            list.add(item)
+        return list
     }
 }
