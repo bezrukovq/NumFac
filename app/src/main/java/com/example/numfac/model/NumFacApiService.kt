@@ -7,5 +7,5 @@ import retrofit2.http.Path
 
 interface NumFacApiService{
     @GET("{numDate}/date?json")
-    fun getDateInfo(@Path("numDate") numDate: Int): Single<Date>
+    fun getDateInfo(@Path("numDate") numDate: Int?): Single<Date>
 }

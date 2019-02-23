@@ -1,6 +1,5 @@
 package com.example.numfac.view.fragments
 
-import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import com.example.numfac.entity.Date
@@ -9,12 +8,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.numfac.R
+import com.example.numfac.model.NumFacModel
+import com.example.numfac.presenter.Presenter
 
-
-@SuppressLint("Registered")
-class NumberDetailsFragment : Fragment() {
-
-    private var number = arguments?.get("number")// этим полем пиннаем presenter'a
+class NumberDetailsFragment : Fragment(), com.example.numfac.view.View {
 
     companion object {
         fun newInstance(int: Int): NumberDetailsFragment {
@@ -27,12 +24,26 @@ class NumberDetailsFragment : Fragment() {
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.fragment_number_details, container, false)
+        val view= inflater.inflate(R.layout.fragment_number_details, container, false)
+        return view
     }
 
-    fun updateData(date: Date) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        Presenter(NumFacModel(), this).getDateInfo(arguments?.getInt("number"))
+    }
+
+    override fun showFac(date: Date) {
         tv_date.text = date.date
         tv_month.text = date.month
-        tv_fact.text = date.text
+        tv_fact.text = date.text    }
+
+    override fun showProgress() {
+        progress_bar.visibility = View.VISIBLE
     }
+
+    override fun hideProgress() {
+        progress_bar.visibility = View.GONE
+    }
+
 }
