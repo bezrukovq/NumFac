@@ -5,5 +5,7 @@ data class Date(
     val year: String,
     val number: Int,
     val found: Boolean,
-    val type: String
+    val type: String,
+    val date: String,
+    val month: String
 )
