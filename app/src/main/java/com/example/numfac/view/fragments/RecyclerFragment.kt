@@ -15,7 +15,9 @@ import java.util.*
 class RecyclerFragment : Fragment() {
 
     private lateinit var recyclerAdapter: RecyclerAdapter
-    private val counter = 9
+    companion object {
+ *         private const val COUNTER = 9
+ *     }
 
     companion object {
         fun newInstance(): RecyclerFragment {
@@ -50,7 +52,7 @@ class RecyclerFragment : Fragment() {
     private fun getDateList(): ArrayList<Int> {
         val list = ArrayList<Int>()
         val today = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
-        for (item: Int in today..today + counter)
+        for (item: Int in today..today + COUNTER)
             list.add(item)
         return list
     }
