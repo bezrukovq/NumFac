@@ -26,5 +26,9 @@ class MainActivity : AppCompatActivity(), View {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
       //  Presenter(NumFacModel(), this).getDateInfo(55)
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.container, RecyclerFragment.newInstance())
+            .commit()
     }
 }
