@@ -49,7 +49,8 @@ class RecyclerFragment : Fragment() {
     private fun getDateList(): ArrayList<Int> {
         val list = ArrayList<Int>()
         val today = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
-        for (item: Int in today..(today + 9))
+        val counter = 9
+        for (item: Int in today..today + counter)
             list.add(item)
         return list
     }
