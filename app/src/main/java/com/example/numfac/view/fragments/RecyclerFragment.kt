@@ -27,11 +27,11 @@ class RecyclerFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_recycler, container, false)
-    
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerAdapter = RecyclerAdapter {onItemClick(it)}
+        recyclerAdapter = RecyclerAdapter { onItemClick(it) }
         val manager = LinearLayoutManager(context)
         recycler_view.adapter = recyclerAdapter
         recyclerAdapter.list = getDateList()
@@ -46,10 +46,10 @@ class RecyclerFragment : Fragment() {
             ?.commit()
     }
 
-    fun getDateList(): ArrayList<Int>{
+    private fun getDateList(): ArrayList<Int> {
         val list = ArrayList<Int>()
         val today = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
-        for (item: Int in today..today+9)
+        for (item: Int in today..(today + 9))
             list.add(item)
         return list
     }
