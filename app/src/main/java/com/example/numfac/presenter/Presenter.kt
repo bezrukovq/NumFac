@@ -10,7 +10,7 @@ import io.reactivex.rxkotlin.subscribeBy
 open class Presenter(val model: NumFacModel, val view: View) {
 
     @SuppressLint("CheckResult")
-    fun getDateInfo(numDate: Int) {
+    fun getDateInfo(numDate: Int?) {
         Log.v("Presenter", "Working on it")
         model.getDateInfo(numDate)
             .doOnSubscribe { view.showProgress() }
@@ -20,7 +20,7 @@ open class Presenter(val model: NumFacModel, val view: View) {
             view.showFac(it)
         }, onError = {
             Log.v("Presenter", "Error" + it.message)
-            view.showFac(Date(it.message, "", 1, false, ""))
+            view.showFac(Date(it.message, "", 1, false, "","1","jan"))
         })
     }
 }

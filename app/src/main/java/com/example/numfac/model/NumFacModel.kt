@@ -12,7 +12,7 @@ open class NumFacModel{
 
     val numApi: NumFacApiService=createApi()
 
-    fun getDateInfo(numDate: Int): Single<Date> =
+    fun getDateInfo(numDate: Int?): Single<Date> =
         numApi.getDateInfo(numDate)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
