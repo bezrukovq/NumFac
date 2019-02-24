@@ -9,11 +9,11 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import java.util.*
 
-open class NumFacModel{
+class NumFacModel{
 
-    val numApi: NumFacApiService=createApi()
+    val numApi: NumFacApiService=ApiFactory.createApi()
 
-    fun getDateInfo(numDate: Int?): Single<Date> =
+    fun getDateInfo(numDate: Int): Single<Date> =
         numApi.getDateInfo(numDate)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
@@ -25,16 +25,7 @@ open class NumFacModel{
             list.add(item)
         return list
     }
-
     companion object {
-        fun createApi(): NumFacApiService {
-            val retrofit = Retrofit.Builder()
-                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-                .addConverterFactory(GsonConverterFactory.create())
-                .baseUrl("http://numbersapi.com/")
-                .build()
-            return retrofit.create(NumFacApiService::class.java);
-        }
         private const val COUNTER = 9
     }
 }
