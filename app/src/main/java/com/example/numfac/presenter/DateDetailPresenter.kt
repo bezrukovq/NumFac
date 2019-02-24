@@ -18,10 +18,12 @@ class DateDetailPresenter(private val model: NumFacModel, private val view: Date
                 .doAfterTerminate { view.hideProgress() }
                 .subscribeBy(onSuccess = {
                     Log.v("DateDetailPresenter", "Got it")
-                    view.showFac(it)
+                    view.showDate(it)
+                    view.showMonth(it)
+                    view.showFact(it)
                 }, onError = {
                     Log.v("DateDetailPresenter", "Error" + it.message)
-                    view.showFac(Date(it.message, "", 1, false, "", "1", "jan"))
+                    it.message?.let{view.showError(it)}
                 })
         }
     }
