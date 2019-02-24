@@ -2,7 +2,6 @@ package com.example.numfac.presenter
 
 import android.annotation.SuppressLint
 import android.util.Log
-import com.example.numfac.entity.Date
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.view.fragments.DateView
 import io.reactivex.rxkotlin.subscribeBy
