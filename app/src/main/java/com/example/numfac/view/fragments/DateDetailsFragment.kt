@@ -24,12 +24,6 @@ class DateDetailsFragment : Fragment(), com.example.numfac.view.fragments.DateVi
         dateDetailPresenter.getDateInfo(arguments?.getInt("number"))
     }
 
-    override fun showFac(date: Date) {
-        tv_date?.text = date.date
-        tv_month?.text = date.month
-        tv_fact?.text = date.text
-    }
-
     override fun showProgress() {
         progress_bar?.visibility = View.VISIBLE
     }
@@ -38,10 +32,27 @@ class DateDetailsFragment : Fragment(), com.example.numfac.view.fragments.DateVi
         progress_bar?.visibility = View.GONE
     }
 
+    override fun showDate(date: Date) {
+        tv_date?.text = date.date
+    }
+
+    override fun showMonth(date: Date) {
+        tv_month?.text = date.month
+    }
+
+    override fun showFact(date: Date) {
+        tv_fact?.text = date.text
+    }
+
+    override fun showError(string: String) {
+        tv_fact?.text = string
+    }
+
     companion object {
+        const val ARG_SOME_NAME = "number"
         fun newInstance(int: Int): DateDetailsFragment {
             val args = Bundle()
-            args.putInt("number", int)
+            args.putInt(ARG_SOME_NAME, int)
             val fragment = DateDetailsFragment()
             fragment.arguments = args
             return fragment

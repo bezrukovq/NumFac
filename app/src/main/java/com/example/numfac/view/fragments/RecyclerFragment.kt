@@ -21,7 +21,6 @@ class RecyclerFragment : Fragment(), DateListView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_recycler, container, false)
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         recyclerAdapter = RecyclerAdapter { onItemClick(it) }
@@ -32,11 +31,13 @@ class RecyclerFragment : Fragment(), DateListView {
     }
 
     private fun onItemClick(int: Int) {
-        activity?.supportFragmentManager
-            ?.beginTransaction()
-            ?.addToBackStack("JoJo")
-            ?.replace(R.id.container, DateDetailsFragment.newInstance(int))
-            ?.commit()
+        activity?.let {
+            it.supportFragmentManager
+                .beginTransaction()
+                .addToBackStack("JoJo")
+                .replace(R.id.container, DateDetailsFragment.newInstance(int))
+                .commit()
+        }
     }
 
     override fun showDateList(dataList: List<Int>) {

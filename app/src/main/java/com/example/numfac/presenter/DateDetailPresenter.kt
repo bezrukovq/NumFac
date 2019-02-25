@@ -2,25 +2,28 @@ package com.example.numfac.presenter
 
 import android.annotation.SuppressLint
 import android.util.Log
-import com.example.numfac.entity.Date
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.view.fragments.DateView
 import io.reactivex.rxkotlin.subscribeBy
 
-open class DateDetailPresenter(val model: NumFacModel, val view: DateView) {
+class DateDetailPresenter(private val model: NumFacModel, private val view: DateView) {
 
     @SuppressLint("CheckResult")
     fun getDateInfo(numDate: Int?) {
-        Log.v("DateDetailPresenter", "Working on it")
-        model.getDateInfo(numDate)
-            .doOnSubscribe { view.showProgress() }
-            .doAfterTerminate { view.hideProgress() }
-            .subscribeBy(onSuccess = {
-                Log.v("DateDetailPresenter", "Got it")
-                view.showFac(it)
-            }, onError = {
-                Log.v("DateDetailPresenter", "Error" + it.message)
-                view.showFac(Date(it.message, "", 1, false, "", "1", "jan"))
-            })
+        if (numDate != null) {
+            Log.v("DateDetailPresenter", "Working on it")
+            model.getDateInfo(numDate)
+                .doOnSubscribe { view.showProgress() }
+                .doAfterTerminate { view.hideProgress() }
+                .subscribeBy(onSuccess = {
+                    Log.v("DateDetailPresenter", "Got it")
+                    view.showDate(it)
+                    view.showMonth(it)
+                    view.showFact(it)
+                }, onError = {
+                    Log.v("DateDetailPresenter", "Error" + it.message)
+                    it.message?.let{view.showError(it)}
+                })
+        }
     }
 }
