@@ -2,11 +2,14 @@ package com.example.numfac.presenter
 
 import android.annotation.SuppressLint
 import android.util.Log
+import com.arellomobile.mvp.InjectViewState
+import com.arellomobile.mvp.MvpPresenter
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.view.fragments.DateView
 import io.reactivex.rxkotlin.subscribeBy
 
-class DateDetailPresenter(private val model: NumFacModel, private val view: DateView) {
+@InjectViewState
+class DateDetailPresenter(private val model: NumFacModel, private val view: DateView): MvpPresenter<DateView>() {
 
     @SuppressLint("CheckResult")
     fun getDateInfo(numDate: Int?) {

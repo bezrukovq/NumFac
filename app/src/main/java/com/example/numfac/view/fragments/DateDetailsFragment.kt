@@ -7,13 +7,17 @@ import kotlinx.android.synthetic.main.fragment_number_details.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.MvpFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.numfac.R
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateDetailPresenter
 
-class DateDetailsFragment : Fragment(), com.example.numfac.view.fragments.DateView {
+class DateDetailsFragment : MvpFragment(), DateView {
 
-    private val dateDetailPresenter = DateDetailPresenter(NumFacModel(), this)
+    @InjectPresenter
+    val dateDetailPresenter = DateDetailPresenter(NumFacModel(), this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_number_details, container, false)
