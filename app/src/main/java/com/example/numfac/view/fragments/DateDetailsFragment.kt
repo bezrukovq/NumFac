@@ -1,20 +1,18 @@
 package com.example.numfac.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.example.numfac.entity.Date
 import kotlinx.android.synthetic.main.fragment_number_details.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
-import com.arellomobile.mvp.MvpFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.example.numfac.R
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateDetailPresenter
 
-class DateDetailsFragment : MvpFragment(), DateView {
+class DateDetailsFragment : MvpAppCompatFragment(), DateView {
 
     @InjectPresenter
     val dateDetailPresenter = DateDetailPresenter(NumFacModel(), this)

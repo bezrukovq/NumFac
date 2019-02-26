@@ -7,13 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.arellomobile.mvp.MvpAppCompatFragment
 import com.example.numfac.R
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateListPresenter
 import kotlinx.android.synthetic.main.fragment_recycler.*
 
 @SuppressLint("Registered")
-class RecyclerFragment : Fragment(), DateListView {
+class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     private lateinit var recyclerAdapter: RecyclerAdapter
     private val dateListPresenter = DateListPresenter(NumFacModel(), this)
