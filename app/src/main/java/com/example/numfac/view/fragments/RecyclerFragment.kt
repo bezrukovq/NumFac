@@ -29,17 +29,21 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
     @ProvidePresenter
     fun initPresenter(): DateListPresenter = DateListPresenter(NumFacModel())
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+    }
+
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_recycler, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerAdapter = RecyclerAdapter { onItemClick(it) }
-        val manager = LinearLayoutManager(context)
-        recycler_view.adapter = recyclerAdapter
-        recycler_view.addOnScrollListener(recyclerViewOnScrollListener)
-        recycler_view.layoutManager = manager
-        dateListPresenter.setDateList()
+            recyclerAdapter = RecyclerAdapter { onItemClick(it) }
+            val manager = LinearLayoutManager(context)
+            recycler_view.adapter = recyclerAdapter
+            recycler_view.addOnScrollListener(recyclerViewOnScrollListener)
+            recycler_view.layoutManager = manager
+            dateListPresenter.setDateList()
     }
 
     private fun onItemClick(int: Int) {

@@ -27,7 +27,9 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dateDetailPresenter.getDateInfo(arguments?.getInt("number"))
+        if(savedInstanceState == null) {
+            dateDetailPresenter.getDateInfo(arguments?.getInt("number"))
+        }
     }
 
     override fun showProgress() {

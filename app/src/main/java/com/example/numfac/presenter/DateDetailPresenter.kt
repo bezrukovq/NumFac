@@ -11,6 +11,11 @@ import io.reactivex.rxkotlin.subscribeBy
 @InjectViewState
 class DateDetailPresenter(private val model: NumFacModel): MvpPresenter<DateView>() {
 
+    override fun onFirstViewAttach() {
+        super.onFirstViewAttach()
+
+    }
+
     @SuppressLint("CheckResult")
     fun getDateInfo(numDate: Int?) {
         if (numDate != null) {
