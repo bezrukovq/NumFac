@@ -25,13 +25,13 @@ class NumFacModel {
         return list
     }
 
-    fun expandDateList(): ArrayList<Int> {
+    fun expandDateList(itemsCount: Int): ArrayList<Int> {
         val list = ArrayList<Int>()
-        for (item: Int in curNumber..curNumber + PAGE_SIZE) {
+        for (item: Int in curNumber..curNumber + itemsCount) {
             if (curNumber <= 365)
                 list.add(item)
         }
-        curNumber += PAGE_SIZE + 1
+        curNumber += itemsCount + 1
         return list
     }
 
