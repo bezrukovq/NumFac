@@ -15,6 +15,7 @@ import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateListPresenter
 import kotlinx.android.synthetic.main.fragment_recycler.*
 import android.nfc.tech.MifareUltralight.PAGE_SIZE
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 
 
@@ -60,8 +61,13 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
         recyclerAdapter.list = dataList
     }
 
-    override fun expandDateList(dataList: List<Int>){
+    override fun expandDateList(dataList: List<Int>) {
         //recyclerAdapter.addAll(dataList) TODO add ability to expendListInRecycler
+        val toast = Toast.makeText(
+            context,
+            "Вот тут данные бы поменять", Toast.LENGTH_SHORT
+        )
+        toast.show()
     }
 
     companion object {
@@ -77,17 +83,8 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            if(dy > 0) {
-                val layoutManager = LinearLayoutManager(context)
-                val visibleItemCount = layoutManager.childCount
-                val totalItemCount = layoutManager.itemCount
-                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-                if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
-                    && firstVisibleItemPosition >= 0
-                    && totalItemCount >= PAGE_SIZE
-                ) {
-                    dateListPresenter.expendDateList()
-                }
+            if (!recyclerView.canScrollVertically(1)) {
+                dateListPresenter.expendDateList()
             }
         }
     }
