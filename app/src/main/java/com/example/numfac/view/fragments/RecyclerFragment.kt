@@ -7,6 +7,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.numfac.R
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateListPresenter
@@ -16,13 +18,19 @@ import kotlinx.android.synthetic.main.fragment_recycler.*
 class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     private lateinit var recyclerAdapter: RecyclerAdapter
-    private val dateListPresenter = DateListPresenter(NumFacModel(), this)
+
+    @InjectPresenter
+    lateinit var dateListPresenter: DateListPresenter //= DateListPresenter(NumFacModel(), this)
+
+    @ProvidePresenter
+    fun initPresenter(): DateListPresenter = DateListPresenter(NumFacModel(), this)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_recycler, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initPresenter()
         recyclerAdapter = RecyclerAdapter { onItemClick(it) }
         val manager = LinearLayoutManager(context)
         recycler_view.adapter = recyclerAdapter
