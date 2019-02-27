@@ -60,8 +60,8 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
         recyclerAdapter.list = dataList
     }
 
-    override fun expandDateList(dataList: List<Int>) {
-        dateListPresenter.expendDateList()
+    override fun expandDateList(dataList: List<Int>){
+        //recyclerAdapter.addAll(dataList) TODO add ability to expendListInRecycler
     }
 
     companion object {
@@ -74,21 +74,20 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
     }
 
     private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
-        override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
-            super.onScrollStateChanged(recyclerView, newState)
-        }
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
-            val layoutManager = LinearLayoutManager(context)
-            val visibleItemCount = layoutManager.childCount
-            val totalItemCount = layoutManager.itemCount
-            val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
-            if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
-                && firstVisibleItemPosition >= 0
-                && totalItemCount >= PAGE_SIZE
-            ) {
-                //
+            if(dy > 0) {
+                val layoutManager = LinearLayoutManager(context)
+                val visibleItemCount = layoutManager.childCount
+                val totalItemCount = layoutManager.itemCount
+                val firstVisibleItemPosition = layoutManager.findFirstVisibleItemPosition()
+                if (visibleItemCount + firstVisibleItemPosition >= totalItemCount
+                    && firstVisibleItemPosition >= 0
+                    && totalItemCount >= PAGE_SIZE
+                ) {
+                    dateListPresenter.expendDateList()
+                }
             }
         }
     }
