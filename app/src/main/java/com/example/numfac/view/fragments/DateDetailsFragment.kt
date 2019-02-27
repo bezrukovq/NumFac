@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.PresenterType
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.numfac.R
 import com.example.numfac.model.NumFacModel
@@ -19,7 +20,7 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
     lateinit var dateDetailPresenter: DateDetailPresenter
 
     @ProvidePresenter
-    fun initPresenter(): DateDetailPresenter = DateDetailPresenter(NumFacModel(), this)
+    fun initPresenter(): DateDetailPresenter = DateDetailPresenter(NumFacModel())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_number_details, container, false)

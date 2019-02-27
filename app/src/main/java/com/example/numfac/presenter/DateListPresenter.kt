@@ -6,9 +6,15 @@ import com.example.numfac.model.NumFacModel
 import com.example.numfac.view.fragments.DateListView
 
 @InjectViewState
-class DateListPresenter(private val model: NumFacModel,private val view: DateListView): MvpPresenter<DateListView>() {
+class DateListPresenter(private val model: NumFacModel) : MvpPresenter<DateListView>() {
 
     fun setDateList() =
-        view.showDateList(model.getDateList())
+        viewState.showDateList(model.getDateList())
 
+    fun expendDateList() =
+        viewState.expandDateList(model.expandDateList())
+
+    fun openDate(int: Int) {
+        viewState.openDate(int)
+    }
 }
