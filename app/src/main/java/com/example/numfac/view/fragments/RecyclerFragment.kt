@@ -57,17 +57,17 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
         }
     }
 
-    override fun showDateList(dataList: List<Int>) {
+    override fun showDateList(dataList: ArrayList<Int>) {
         recyclerAdapter.list = dataList
     }
 
-    override fun expandDateList(dataList: List<Int>) {
-        //recyclerAdapter.addAll(dataList) TODO add ability to expendListInRecycler
-        val toast = Toast.makeText(
+    override fun expandDateList(dataList: ArrayList<Int>) {
+        recyclerAdapter.addAll(dataList) //TODO add ability to expendListInRecycler
+        /*val toast = Toast.makeText(
             context,
             "Вот тут данные бы поменять", Toast.LENGTH_SHORT
         )
-        toast.show()
+        toast.show()*/
     }
 
     companion object {

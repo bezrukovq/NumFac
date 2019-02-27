@@ -7,10 +7,11 @@ import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 
 @StateStrategyType(value = AddToEndStrategy::class)
- interface DateListView: MvpView {
+interface DateListView : MvpView {
     //@StateStrategyType(value = SkipStrategy::class)
-    fun showDateList(dataList: List<Int>)
-    fun expandDateList(dataList: List<Int>)
+    fun showDateList(dataList: ArrayList<Int>)
+
+    fun expandDateList(dataList: ArrayList<Int>)
     @StateStrategyType(value = SkipStrategy::class)
-    fun openDate(num :Int)
+    fun openDate(num: Int)
 }

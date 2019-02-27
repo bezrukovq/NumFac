@@ -7,29 +7,31 @@ import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 import java.util.*
 
-class NumFacModel{
+class NumFacModel {
 
-    val numApi: NumFacApiService=ApiFactory.createApi()
+    val numApi: NumFacApiService = ApiFactory.createApi()
 
     fun getDateInfo(numDate: Int): Single<Date> =
         numApi.getDateInfo(numDate)
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeOn(Schedulers.io())
 
-    fun getDateList(): List<Int>{
+    fun getDateList(): ArrayList<Int> {
         val list = ArrayList<Int>()
         val today = Calendar.getInstance().get(Calendar.DAY_OF_YEAR)
         for (item: Int in today..today + COUNTER)
             list.add(item)
-        curNumber = today + COUNTER
+        curNumber = today + COUNTER + 1
         return list
     }
 
-    fun expandDateList(): List<Int>{
+    fun expandDateList(): ArrayList<Int> {
         val list = ArrayList<Int>()
-        for (item: Int in curNumber..curNumber + PAGE_SIZE)
-            list.add(item)
-        curNumber += PAGE_SIZE
+        for (item: Int in curNumber..curNumber + PAGE_SIZE) {
+            if (curNumber <= 365)
+                list.add(item)
+        }
+        curNumber += PAGE_SIZE + 1
         return list
     }
 
