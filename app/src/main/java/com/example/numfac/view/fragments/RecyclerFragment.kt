@@ -20,7 +20,7 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
     private lateinit var recyclerAdapter: RecyclerAdapter
 
     @InjectPresenter
-    lateinit var dateListPresenter: DateListPresenter //= DateListPresenter(NumFacModel(), this)
+    lateinit var dateListPresenter: DateListPresenter
 
     @ProvidePresenter
     fun initPresenter(): DateListPresenter = DateListPresenter(NumFacModel(), this)
@@ -30,7 +30,6 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initPresenter()
         recyclerAdapter = RecyclerAdapter { onItemClick(it) }
         val manager = LinearLayoutManager(context)
         recycler_view.adapter = recyclerAdapter

@@ -16,7 +16,7 @@ import com.example.numfac.presenter.DateDetailPresenter
 class DateDetailsFragment : MvpAppCompatFragment(), DateView {
 
     @InjectPresenter
-    lateinit var dateDetailPresenter: DateDetailPresenter // DateDetailPresenter(NumFacModel(), this)
+    lateinit var dateDetailPresenter: DateDetailPresenter
 
     @ProvidePresenter
     fun initPresenter(): DateDetailPresenter = DateDetailPresenter(NumFacModel(), this)
@@ -24,10 +24,8 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_number_details, container, false)
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initPresenter()
         dateDetailPresenter.getDateInfo(arguments?.getInt("number"))
     }
 
