@@ -11,11 +11,12 @@ class RecyclerAdapter(private var onItemClick: (Int) -> Unit) : RecyclerView.Ada
     override fun getItemCount() = list.size
 
     fun addAll(values: List<Int>) {
-        //var oldlist: ArrayList<Int> = list
         for (value in values) {
             list.add(value)
-            notifyItemInserted(list.size)
+           // notifyItemInserted(list.size)
         }
+        //what's better?? hmm...
+        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
