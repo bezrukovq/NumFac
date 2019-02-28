@@ -13,7 +13,7 @@ class MainActivity : MvpAppCompatActivity(){
         if(savedInstanceState == null) {
             supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.container, RecyclerFragment.newInstance()).also { it.addToBackStack("") }
+                .replace(R.id.container, RecyclerFragment.newInstance())
                 .commit()
         }
     }

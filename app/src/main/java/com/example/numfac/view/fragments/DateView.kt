@@ -10,7 +10,7 @@ import com.example.numfac.entity.Date
 interface DateView: MvpView {
     fun showDate(date: Date)
     fun showMonth(date: Date)
-    @StateStrategyType(value = AddToEndStrategy::class)
+    @StateStrategyType(value = AddToEndSingleStrategy::class)
     fun showFact(date: Date)
     fun showError(string: String)
     fun showProgress()
