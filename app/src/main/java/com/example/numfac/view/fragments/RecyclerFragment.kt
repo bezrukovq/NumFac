@@ -1,28 +1,30 @@
 package com.example.numfac.view.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.arellomobile.mvp.presenter.PresenterType
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.numfac.R
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateListPresenter
 import kotlinx.android.synthetic.main.fragment_recycler.*
-import android.nfc.tech.MifareUltralight.PAGE_SIZE
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
 @SuppressLint("Registered")
 class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     private lateinit var recyclerAdapter: RecyclerAdapter
+    private var paginationSize = 5
 
     @InjectPresenter
     lateinit var dateListPresenter: DateListPresenter
@@ -41,6 +43,19 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
         recycler_view.addOnScrollListener(recyclerViewOnScrollListener)
         recycler_view.layoutManager = manager
         dateListPresenter.setDateList()
+
+        recycler_fab.setOnClickListener {
+            val dlg1 = Dialog1()
+            dlg1.setTargetFragment(this, 228)
+            dlg1.show(fragmentManager, "dlg1")
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        if (requestCode == 228) {
+            val editInt = data.getIntExtra("EDIT_TEXT_BUNDLE_KEY", 5)
+            paginationSize = editInt
+        }
     }
 
     private fun onItemClick(int: Int) {
@@ -62,12 +77,7 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
     }
 
     override fun expandDateList(dataList: ArrayList<Int>) {
-        recyclerAdapter.addAll(dataList) //TODO add ability to expendListInRecycler
-        /*val toast = Toast.makeText(
-            context,
-            "Вот тут данные бы поменять", Toast.LENGTH_SHORT
-        )
-        toast.show()*/
+        recyclerAdapter.addAll(dataList)
     }
 
     companion object {
@@ -84,7 +94,7 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             if (!recyclerView.canScrollVertically(1)) {
-                dateListPresenter.expendDateList(5)// TODO create dialog
+                dateListPresenter.expendDateList(paginationSize)
             }
         }
     }
