@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.DialogFragment
-import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -17,7 +15,7 @@ import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateListPresenter
 import kotlinx.android.synthetic.main.fragment_recycler.*
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.example.numfac.view.dialogs.DownloadSizeDialog
 
 
 @SuppressLint("Registered")
@@ -45,7 +43,7 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
         dateListPresenter.setDateList()
 
         recycler_fab.setOnClickListener {
-            val dlg1 = Dialog1()
+            val dlg1 = DownloadSizeDialog()
             dlg1.setTargetFragment(this, 228)
             dlg1.show(fragmentManager, "dlg1")
         }
