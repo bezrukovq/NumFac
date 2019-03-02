@@ -33,7 +33,7 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        PaginationPreferences.init(context!!)
+        PaginationPreferences.init(context)
         recyclerAdapter = RecyclerAdapter { onItemClick(it) }
         val manager = LinearLayoutManager(context)
         recycler_view.adapter = recyclerAdapter

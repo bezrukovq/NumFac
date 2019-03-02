@@ -6,12 +6,15 @@ import android.content.SharedPreferences
 object PaginationPreferences {
     private const val NAME = "SpinKotlin"
     private const val MODE = Context.MODE_PRIVATE
+    private const val DEFAULTPAGINATION = 5
     private lateinit var preferences: SharedPreferences
 
-    private var PAGINATION_SIZE = Pair("pagination_size", 5)
+    private var PAGINATION_SIZE = Pair("pagination_size", DEFAULTPAGINATION)
 
-    fun init(context: Context) {
-        preferences = context.getSharedPreferences(NAME, MODE)
+    fun init(context: Context?) {
+        context?.let {
+            preferences = context.getSharedPreferences(NAME, MODE)
+        }
     }
 
     var paginationSize: Int

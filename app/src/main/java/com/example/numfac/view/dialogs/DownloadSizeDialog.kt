@@ -12,7 +12,6 @@ import com.example.numfac.R
 import com.example.numfac.view.PaginationPreferences
 import kotlinx.android.synthetic.main.fragment_dialog.*
 
-
 class DownloadSizeDialog : DialogFragment(), View.OnClickListener {
 
     val LOG_TAG = "myLogs"
