@@ -6,18 +6,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
-import com.arellomobile.mvp.presenter.PresenterType
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.numfac.R
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateListPresenter
 import kotlinx.android.synthetic.main.fragment_recycler.*
-import android.nfc.tech.MifareUltralight.PAGE_SIZE
-import android.widget.Toast
-import androidx.recyclerview.widget.RecyclerView
-
 
 @SuppressLint("Registered")
 class RecyclerFragment : MvpAppCompatFragment(), DateListView {
@@ -30,15 +26,12 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
     @ProvidePresenter
     fun initPresenter(): DateListPresenter = DateListPresenter(NumFacModel())
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_recycler, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        fab.setOnClickListener {  }
             recyclerAdapter = RecyclerAdapter { onItemClick(it) }
             val manager = LinearLayoutManager(context)
             recycler_view.adapter = recyclerAdapter
@@ -66,21 +59,7 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
     }
 
     override fun expandDateList(dataList: ArrayList<Int>) {
-        recyclerAdapter.addAll(dataList) //TODO add ability to expendListInRecycler
-        /*val toast = Toast.makeText(
-            context,
-            "Вот тут данные бы поменять", Toast.LENGTH_SHORT
-        )
-        toast.show()*/
-    }
-
-    companion object {
-        fun newInstance(): RecyclerFragment {
-            val args = Bundle()
-            val fragment = RecyclerFragment()
-            fragment.arguments = args
-            return fragment
-        }
+        recyclerAdapter.addAll(dataList)
     }
 
     private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
@@ -88,8 +67,17 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             if (!recyclerView.canScrollVertically(1)) {
-                dateListPresenter.expendDateList(5)// TODO create dialog
+                dateListPresenter.expendDateList(itemsToScroll)// TODO create dialog
             }
+        }
+    }
+    companion object {
+        private var itemsToScroll =5
+        fun newInstance(): RecyclerFragment {
+            val args = Bundle()
+            val fragment = RecyclerFragment()
+            fragment.arguments = args
+            return fragment
         }
     }
 }

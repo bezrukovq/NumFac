@@ -1,6 +1,5 @@
 package com.example.numfac.model
 
-import android.nfc.tech.MifareUltralight.PAGE_SIZE
 import com.example.numfac.entity.Date
 import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
@@ -28,7 +27,7 @@ class NumFacModel {
     fun expandDateList(itemsCount: Int): ArrayList<Int> {
         val list = ArrayList<Int>()
         for (item: Int in curNumber..curNumber + itemsCount) {
-            if (curNumber <= 365)
+            if (curNumber <=LAST_DATE)
                 list.add(item)
         }
         curNumber += itemsCount + 1
@@ -36,7 +35,8 @@ class NumFacModel {
     }
 
     companion object {
-        private const val COUNTER = 9
+        private const val COUNTER = 15
+        private const val LAST_DATE = 365
         private var curNumber = 0
     }
 }
