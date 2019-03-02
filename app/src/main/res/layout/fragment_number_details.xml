@@ -16,7 +16,9 @@
                 android:visibility="gone"
                 android:layout_width="148dp" android:layout_height="100dp"
                 android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"/>
+                android:layout_centerVertical="true"
+                android:indeterminateTint="#000000"
+        />
 
     </RelativeLayout>
 

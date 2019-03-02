@@ -1,6 +1,7 @@
 package com.example.numfac.view
 
 import android.os.Bundle
+import android.view.Menu
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.example.numfac.R
 import com.example.numfac.view.fragments.RecyclerFragment
@@ -16,5 +17,10 @@ class MainActivity : MvpAppCompatActivity(){
                 .replace(R.id.container, RecyclerFragment.newInstance())
                 .commit()
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.toolbar_items, menu)
+        return true
     }
 }
