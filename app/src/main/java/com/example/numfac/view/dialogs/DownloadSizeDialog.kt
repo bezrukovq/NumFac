@@ -2,14 +2,18 @@ package com.example.numfac.view.dialogs
 
 import android.content.DialogInterface
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.example.numfac.R
+import com.example.numfac.view.PaginationPreferences
 import kotlinx.android.synthetic.main.fragment_dialog.*
+
 
 class DownloadSizeDialog : DialogFragment(), View.OnClickListener {
 
@@ -18,9 +22,10 @@ class DownloadSizeDialog : DialogFragment(), View.OnClickListener {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_dialog, container)
 
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialog_text_view.text = curNumber.toString()
+        dialog_text_view.text = PaginationPreferences.paginationSize.toString()
         btnMinus.setOnClickListener(this)
         btnPlus.setOnClickListener(this)
         btnAccept.setOnClickListener(this)
@@ -29,14 +34,14 @@ class DownloadSizeDialog : DialogFragment(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v) {
             btnMinus -> {
-                if (curNumber > 1)
-                    curNumber--
-                dialog_text_view.text = curNumber.toString()
+                if (PaginationPreferences.paginationSize > 1)
+                    PaginationPreferences.paginationSize--
+                dialog_text_view.text = PaginationPreferences.paginationSize.toString()
             }
             btnPlus -> {
-                if (curNumber < MAX_REQUEST_SIZE)
-                    curNumber++
-                dialog_text_view.text = curNumber.toString()
+                if (PaginationPreferences.paginationSize < MAX_REQUEST_SIZE)
+                    PaginationPreferences.paginationSize++
+                dialog_text_view.text = PaginationPreferences.paginationSize.toString()
             }
             btnAccept -> {
                 sendResult(REPLY_CODE)
@@ -57,17 +62,14 @@ class DownloadSizeDialog : DialogFragment(), View.OnClickListener {
 
     private fun sendResult(REQUEST_CODE: Int) {
         val intent = Intent()
-        intent.putExtra("EDIT_TEXT_BUNDLE_KEY", curNumber)
+        intent.putExtra("EDIT_TEXT_BUNDLE_KEY", PaginationPreferences.paginationSize)
         targetFragment?.onActivityResult(
             targetRequestCode, REQUEST_CODE, intent
         )
     }
 
     companion object {
-        //TODO make with shared preferences
-        private var curNumber = 5
-        //-------------------------------
-        const val MAX_REQUEST_SIZE =50
+        const val MAX_REQUEST_SIZE = 50
         const val REPLY_CODE = 228
     }
 }

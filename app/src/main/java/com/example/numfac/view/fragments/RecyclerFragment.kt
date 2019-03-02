@@ -2,10 +2,12 @@ package com.example.numfac.view.fragments
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
@@ -15,6 +17,7 @@ import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateListPresenter
 import kotlinx.android.synthetic.main.fragment_recycler.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.numfac.view.PaginationPreferences
 import com.example.numfac.view.dialogs.DownloadSizeDialog
 
 @SuppressLint("Registered")
@@ -33,6 +36,7 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        PaginationPreferences.init(context!!)
         recyclerAdapter = RecyclerAdapter { onItemClick(it) }
         val manager = LinearLayoutManager(context)
         recycler_view.adapter = recyclerAdapter
@@ -42,15 +46,7 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
         recycler_fab.setOnClickListener {
             val dlg1 = DownloadSizeDialog()
-            dlg1.setTargetFragment(this, DIALOG_REQUEST_CODE)
             dlg1.show(fragmentManager, "dlg1")
-        }
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (requestCode == DIALOG_REQUEST_CODE) {
-            val editInt = data.getIntExtra("EDIT_TEXT_BUNDLE_KEY", DEFAULT_TO_SCROLL)
-            itemsToScroll = editInt
         }
     }
 
@@ -78,18 +74,16 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
 
+        @SuppressLint("ShowToast")
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             if (!recyclerView.canScrollVertically(1)) {
-                dateListPresenter.expendDateList(itemsToScroll)// TODO create dialog
+                dateListPresenter.expendDateList(PaginationPreferences.paginationSize)
             }
         }
     }
 
     companion object {
-        private var itemsToScroll = 5
-        private const val DIALOG_REQUEST_CODE = 228
-        private const val DEFAULT_TO_SCROLL = 5
         fun newInstance(): RecyclerFragment {
             val args = Bundle()
             val fragment = RecyclerFragment()
