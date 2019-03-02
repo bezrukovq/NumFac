@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -17,12 +18,10 @@ import kotlinx.android.synthetic.main.fragment_recycler.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.numfac.view.dialogs.DownloadSizeDialog
 
-
 @SuppressLint("Registered")
 class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     private lateinit var recyclerAdapter: RecyclerAdapter
-    private var paginationSize = 5
 
     @InjectPresenter
     lateinit var dateListPresenter: DateListPresenter
@@ -49,16 +48,15 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) =
         if (requestCode == 228) {
             val editInt = data.getIntExtra("EDIT_TEXT_BUNDLE_KEY", 5)
             paginationSize = editInt
         }
-    }
 
-    private fun onItemClick(int: Int) {
+    private fun onItemClick(int: Int) =
         dateListPresenter.openDate(int)
-    }
+    
 
     override fun openDate(num: Int) {
         activity?.let {
@@ -78,22 +76,23 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
         recyclerAdapter.addAll(dataList)
     }
 
-    companion object {
-        fun newInstance(): RecyclerFragment {
-            val args = Bundle()
-            val fragment = RecyclerFragment()
-            fragment.arguments = args
-            return fragment
-        }
-    }
-
     private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             if (!recyclerView.canScrollVertically(1)) {
-                dateListPresenter.expendDateList(paginationSize)
+                dateListPresenter.expendDateList(itemsToScroll)// TODO create dialog
             }
+        }
+    }
+  
+    companion object {
+        private var itemsToScroll =5
+        fun newInstance(): RecyclerFragment {
+            val args = Bundle()
+            val fragment = RecyclerFragment()
+            fragment.arguments = args
+            return fragment
         }
     }
 }
