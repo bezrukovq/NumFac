@@ -1,6 +1,7 @@
 package com.example.numfac.view.fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -14,6 +15,8 @@ import com.example.numfac.R
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateListPresenter
 import kotlinx.android.synthetic.main.fragment_recycler.*
+import androidx.recyclerview.widget.RecyclerView
+import com.example.numfac.view.dialogs.DownloadSizeDialog
 
 @SuppressLint("Registered")
 class RecyclerFragment : MvpAppCompatFragment(), DateListView {
@@ -31,18 +34,29 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        fab.setOnClickListener {  }
-            recyclerAdapter = RecyclerAdapter { onItemClick(it) }
-            val manager = LinearLayoutManager(context)
-            recycler_view.adapter = recyclerAdapter
-            recycler_view.addOnScrollListener(recyclerViewOnScrollListener)
-            recycler_view.layoutManager = manager
-            dateListPresenter.setDateList()
+        recyclerAdapter = RecyclerAdapter { onItemClick(it) }
+        val manager = LinearLayoutManager(context)
+        recycler_view.adapter = recyclerAdapter
+        recycler_view.addOnScrollListener(recyclerViewOnScrollListener)
+        recycler_view.layoutManager = manager
+        dateListPresenter.setDateList()
+
+        recycler_fab.setOnClickListener {
+            val dlg1 = DownloadSizeDialog()
+            dlg1.setTargetFragment(this, 228)
+            dlg1.show(fragmentManager, "dlg1")
+        }
     }
 
-    private fun onItemClick(int: Int) {
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) =
+        if (requestCode == 228) {
+            val editInt = data.getIntExtra("EDIT_TEXT_BUNDLE_KEY", 5)
+            paginationSize = editInt
+        }
+
+    private fun onItemClick(int: Int) =
         dateListPresenter.openDate(int)
-    }
+    
 
     override fun openDate(num: Int) {
         activity?.let {
@@ -71,6 +85,7 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
             }
         }
     }
+  
     companion object {
         private var itemsToScroll =5
         fun newInstance(): RecyclerFragment {
