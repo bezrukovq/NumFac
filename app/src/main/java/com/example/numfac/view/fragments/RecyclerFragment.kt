@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.recyclerview.widget.RecyclerView
 import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
@@ -43,20 +42,21 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
         recycler_fab.setOnClickListener {
             val dlg1 = DownloadSizeDialog()
-            dlg1.setTargetFragment(this, 228)
+            dlg1.setTargetFragment(this, DIALOG_REQUEST_CODE)
             dlg1.show(fragmentManager, "dlg1")
         }
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) =
-        if (requestCode == 228) {
-            val editInt = data.getIntExtra("EDIT_TEXT_BUNDLE_KEY", 5)
-            paginationSize = editInt
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        if (requestCode == DIALOG_REQUEST_CODE) {
+            val editInt = data.getIntExtra("EDIT_TEXT_BUNDLE_KEY", DEFAULT_TO_SCROLL)
+            itemsToScroll = editInt
         }
+    }
 
     private fun onItemClick(int: Int) =
         dateListPresenter.openDate(int)
-    
+
 
     override fun openDate(num: Int) {
         activity?.let {
@@ -85,9 +85,11 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
             }
         }
     }
-  
+
     companion object {
-        private var itemsToScroll =5
+        private var itemsToScroll = 5
+        private const val DIALOG_REQUEST_CODE = 228
+        private const val DEFAULT_TO_SCROLL = 5
         fun newInstance(): RecyclerFragment {
             val args = Bundle()
             val fragment = RecyclerFragment()

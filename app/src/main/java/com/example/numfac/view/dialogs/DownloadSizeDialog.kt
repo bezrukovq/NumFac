@@ -11,11 +11,9 @@ import androidx.fragment.app.DialogFragment
 import com.example.numfac.R
 import kotlinx.android.synthetic.main.fragment_dialog.*
 
-
 class DownloadSizeDialog : DialogFragment(), View.OnClickListener {
 
     val LOG_TAG = "myLogs"
-    private var curNumber = 5
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_dialog, container)
@@ -36,12 +34,12 @@ class DownloadSizeDialog : DialogFragment(), View.OnClickListener {
                 dialog_text_view.text = curNumber.toString()
             }
             btnPlus -> {
-                if (curNumber < 50)
+                if (curNumber < MAX_REQUEST_SIZE)
                     curNumber++
                 dialog_text_view.text = curNumber.toString()
             }
             btnAccept -> {
-                sendResult(228)
+                sendResult(REPLY_CODE)
                 dismiss()
             }
         }
@@ -63,5 +61,13 @@ class DownloadSizeDialog : DialogFragment(), View.OnClickListener {
         targetFragment?.onActivityResult(
             targetRequestCode, REQUEST_CODE, intent
         )
+    }
+
+    companion object {
+        //TODO make with shared preferences
+        private var curNumber = 5
+        //-------------------------------
+        const val MAX_REQUEST_SIZE =50
+        const val REPLY_CODE = 228
     }
 }
