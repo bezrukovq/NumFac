@@ -1,27 +1,34 @@
 package com.example.numfac.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import com.example.numfac.entity.Date
 import kotlinx.android.synthetic.main.fragment_number_details.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.numfac.R
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateDetailPresenter
 
-class DateDetailsFragment : Fragment(), com.example.numfac.view.fragments.DateView {
+class DateDetailsFragment : MvpAppCompatFragment(), DateView {
 
-    private val dateDetailPresenter = DateDetailPresenter(NumFacModel(), this)
+    @InjectPresenter
+    lateinit var dateDetailPresenter: DateDetailPresenter
+
+    @ProvidePresenter
+    fun initPresenter(): DateDetailPresenter = DateDetailPresenter(NumFacModel())
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_number_details, container, false)
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dateDetailPresenter.getDateInfo(arguments?.getInt("number"))
+        if(savedInstanceState == null) {
+            dateDetailPresenter.getDateInfo(arguments?.getInt("number"))
+        }
     }
 
     override fun showProgress() {
