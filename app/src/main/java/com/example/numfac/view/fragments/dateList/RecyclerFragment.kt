@@ -1,4 +1,4 @@
-package com.example.numfac.view.fragments
+package com.example.numfac.view.fragments.dateList
 
 import android.annotation.SuppressLint
 import android.content.Intent
@@ -16,6 +16,7 @@ import com.example.numfac.presenter.DateListPresenter
 import kotlinx.android.synthetic.main.fragment_recycler.*
 import androidx.recyclerview.widget.RecyclerView
 import com.example.numfac.view.dialogs.DownloadSizeDialog
+import com.example.numfac.view.fragments.DateDetailsFragment
 
 @SuppressLint("Registered")
 class RecyclerFragment : MvpAppCompatFragment(), DateListView {
@@ -42,14 +43,18 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
         recycler_fab.setOnClickListener {
             val dlg1 = DownloadSizeDialog()
-            dlg1.setTargetFragment(this, DIALOG_REQUEST_CODE)
+            dlg1.setTargetFragment(this,
+                DIALOG_REQUEST_CODE
+            )
             dlg1.show(fragmentManager, "dlg1")
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (requestCode == DIALOG_REQUEST_CODE) {
-            val editInt = data.getIntExtra("EDIT_TEXT_BUNDLE_KEY", DEFAULT_TO_SCROLL)
+            val editInt = data.getIntExtra("EDIT_TEXT_BUNDLE_KEY",
+                DEFAULT_TO_SCROLL
+            )
             itemsToScroll = editInt
         }
     }
@@ -63,7 +68,9 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
             it.supportFragmentManager
                 .beginTransaction()
                 .addToBackStack("JoJo")
-                .replace(R.id.container, DateDetailsFragment.newInstance(num))
+                .replace(R.id.container,
+                    DateDetailsFragment.newInstance(num)
+                )
                 .commit()
         }
     }

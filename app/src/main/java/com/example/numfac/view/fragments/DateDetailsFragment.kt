@@ -15,6 +15,7 @@ import com.example.numfac.presenter.DateDetailPresenter
 
 class DateDetailsFragment : MvpAppCompatFragment(), DateView {
 
+    //TODO saving to favourite
     @InjectPresenter
     lateinit var dateDetailPresenter: DateDetailPresenter
 

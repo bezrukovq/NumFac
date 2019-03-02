@@ -1,4 +1,4 @@
-package com.example.numfac.view.fragments
+package com.example.numfac.view.fragments.dateList
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -13,10 +13,8 @@ class RecyclerAdapter(private var onItemClick: (Int) -> Unit) : RecyclerView.Ada
     fun addAll(values: List<Int>) {
         for (value in values) {
             list.add(value)
-           // notifyItemInserted(list.size)
+            notifyItemInserted(list.size)
         }
-        //what's better?? hmm...
-        notifyDataSetChanged()
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
