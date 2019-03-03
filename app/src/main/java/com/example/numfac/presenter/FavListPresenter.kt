@@ -1,6 +1,5 @@
 package com.example.numfac.presenter
 
-import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.numfac.entity.DateDB
