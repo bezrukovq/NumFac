@@ -6,20 +6,22 @@ import io.reactivex.Single
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.schedulers.Schedulers
 
-class DateRepository(val dateDAO: DateDAO) {
+class DateRepository(val dateDAO: DateDAO?) {
 
     fun addDate(dateDB: DateDB) =
-        Completable.fromAction { dateDAO.insert(dateDB) }
+        Completable.fromAction { dateDAO?.insert(dateDB) }
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
 
-    fun deleteDate(dateDB: DateDB)=
-            Completable.fromAction{dateDAO.delete(dateDB.text)}
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+    fun deleteDate(dateDB: DateDB) =
+        Completable.fromAction { dateDAO?.delete(dateDB.text) }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
 
-    fun getAllDates() : Single<List<DateDB>> =
-            dateDAO.getAllFavDates()
+    fun getAllDates(): Single<List<DateDB>>? =
+        dateDAO?.run {
+            getAllFavDates()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+        }
 }

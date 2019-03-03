@@ -18,8 +18,8 @@ object NumFacModel {
     private var curNumber = 0
 
     val numApi: NumFacApiService = ApiFactory.createApi()
-    lateinit var db: AppDataBase
-    lateinit var dateRepository: DateRepository
+    var db: AppDataBase? = null
+    var dateRepository: DateRepository? = null
 
     fun setDB(applicationContext: Context) {
         db = Room.databaseBuilder(
@@ -28,17 +28,17 @@ object NumFacModel {
             "database"
         )
             .build()
-        dateRepository = DateRepository(db.dateDao())
+        db.let { dateRepository= DateRepository(it?.dateDao()) }
     }
 
-    fun getFavDateList(): Single<List<DateDB>> =
-        dateRepository.getAllDates()
+    fun getFavDateList(): Single<List<DateDB>>? =
+        dateRepository?.getAllDates()
 
     fun addToFavList(dateDB: DateDB) =
-        dateRepository.addDate(dateDB).subscribe()
+        dateRepository?.addDate(dateDB)?.subscribe()
 
     fun deleteFromFavList(dateDB: DateDB) =
-        dateRepository.deleteDate(dateDB).subscribe()
+        dateRepository?.deleteDate(dateDB)?.subscribe()
 
     fun getDateInfo(numDate: Int): Single<Date> =
         numApi.getDateInfo(numDate)
