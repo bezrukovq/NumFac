@@ -1,4 +1,4 @@
-package com.example.numfac.view
+package com.example.numfac.model
 
 import android.content.Context
 import android.content.SharedPreferences
@@ -9,11 +9,16 @@ object PaginationPreferences {
     private const val DEFAULTPAGINATION = 5
     private lateinit var preferences: SharedPreferences
 
-    private var PAGINATION_SIZE = Pair("pagination_size", DEFAULTPAGINATION)
+    private var PAGINATION_SIZE = Pair("pagination_size",
+        DEFAULTPAGINATION
+    )
 
     fun init(context: Context?) {
         context?.let {
-            preferences = context.getSharedPreferences(NAME, MODE)
+            preferences = context.getSharedPreferences(
+                NAME,
+                MODE
+            )
         }
     }
 

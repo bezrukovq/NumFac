@@ -1,7 +1,6 @@
 package com.example.numfac.view.fragments.dateList
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +14,7 @@ import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateListPresenter
 import kotlinx.android.synthetic.main.fragment_recycler.*
 import androidx.recyclerview.widget.RecyclerView
+import com.example.numfac.model.PaginationPreferences
 import com.example.numfac.view.dialogs.DownloadSizeDialog
 import com.example.numfac.view.fragments.DateDetailsFragment
 
