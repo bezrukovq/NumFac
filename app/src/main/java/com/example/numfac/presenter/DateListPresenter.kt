@@ -3,7 +3,7 @@ package com.example.numfac.presenter
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.numfac.model.NumFacModel
-import com.example.numfac.view.fragments.DateListView
+import com.example.numfac.view.fragments.dateList.DateListView
 
 @InjectViewState
 class DateListPresenter(private val model: NumFacModel) : MvpPresenter<DateListView>() {

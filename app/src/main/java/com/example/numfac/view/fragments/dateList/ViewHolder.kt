@@ -1,4 +1,4 @@
-package com.example.numfac.view.fragments
+package com.example.numfac.view.fragments.dateList
 
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView

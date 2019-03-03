@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.example.numfac.entity.DateDB
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.view.fragments.DateView
 import io.reactivex.rxkotlin.subscribeBy
@@ -11,10 +12,11 @@ import io.reactivex.rxkotlin.subscribeBy
 @InjectViewState
 class DateDetailPresenter(private val model: NumFacModel): MvpPresenter<DateView>() {
 
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
+    fun saveToFav(dateDB: DateDB) =
+        model.addToFavList(dateDB)
 
-    }
+    fun deleteFromFav(dateDB: DateDB) =
+        model.deleteFromFavList(dateDB)
 
     @SuppressLint("CheckResult")
     fun getDateInfo(numDate: Int?) {

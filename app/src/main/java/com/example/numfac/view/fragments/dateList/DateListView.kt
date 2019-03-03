@@ -1,4 +1,4 @@
-package com.example.numfac.view.fragments
+package com.example.numfac.view.fragments.dateList
 
 import com.arellomobile.mvp.MvpView
 import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
