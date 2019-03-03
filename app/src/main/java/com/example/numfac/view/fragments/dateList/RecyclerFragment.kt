@@ -34,6 +34,7 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        PaginationPreferences.init(context)
         val manager = LinearLayoutManager(context)
         recycler_view.adapter = recyclerAdapter
         recycler_view.addOnScrollListener(recyclerViewOnScrollListener)
@@ -41,24 +42,10 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
         dateListPresenter.setDateList()
         recycler_fab.setOnClickListener {
             val dlg1 = DownloadSizeDialog()
-            dlg1.setTargetFragment(
-                this,
-                DIALOG_REQUEST_CODE
-            )
             dlg1.show(fragmentManager, "dlg1")
         }
     }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
-        if (requestCode == DIALOG_REQUEST_CODE) {
-            val editInt = data.getIntExtra(
-                "EDIT_TEXT_BUNDLE_KEY",
-                DEFAULT_TO_SCROLL
-            )
-            itemsToScroll = editInt
-        }
-    }
-
+    
     private fun onItemClick(int: Int) =
         dateListPresenter.openDate(int)
 
@@ -89,15 +76,12 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             super.onScrolled(recyclerView, dx, dy)
             if (!recyclerView.canScrollVertically(1)) {
-                dateListPresenter.expendDateList(itemsToScroll)// TODO create dialog
+                dateListPresenter.expendDateList(PaginationPreferences.paginationSize)
             }
         }
     }
 
     companion object {
-        private var itemsToScroll = 5
-        private const val DIALOG_REQUEST_CODE = 228
-        private const val DEFAULT_TO_SCROLL = 5
         fun newInstance(): RecyclerFragment {
             val args = Bundle()
             val fragment = RecyclerFragment()
