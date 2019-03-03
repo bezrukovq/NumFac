@@ -5,6 +5,7 @@ import android.view.Menu
 import android.view.MenuItem
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.example.numfac.R
+import com.example.numfac.model.NumFacModel
 import com.example.numfac.view.fragments.dateList.RecyclerFragment
 import com.example.numfac.view.fragments.favList.FavListFragment
 
@@ -17,6 +18,7 @@ class MainActivity : MvpAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
+            NumFacModel.setDB(applicationContext)
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container, RecyclerFragment.newInstance())

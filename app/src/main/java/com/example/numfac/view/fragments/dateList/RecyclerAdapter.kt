@@ -7,7 +7,7 @@ import com.example.numfac.R
 
 class RecyclerAdapter(private var onItemClick: (Int) -> Unit) : RecyclerView.Adapter<ViewHolder>() {
 
-    lateinit var list: ArrayList<Int>
+    var list: ArrayList<Int> = arrayListOf()
     override fun getItemCount() = list.size
 
     fun addAll(values: List<Int>) {

@@ -4,10 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.numfac.R
+import com.example.numfac.entity.DateDB
 
-class FavListAdapter(private var onItemClick: (Int) -> Unit) : RecyclerView.Adapter<FavViewHolder>() {
+class FavListAdapter(private var onItemClick: (DateDB) -> Unit) : RecyclerView.Adapter<FavViewHolder>() {
 
-    lateinit var favList: ArrayList<Int>
+    var favList: List<DateDB> = arrayListOf()
 
     override fun getItemCount(): Int =
         favList.size

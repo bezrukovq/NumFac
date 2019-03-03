@@ -21,29 +21,28 @@ import com.example.numfac.view.fragments.DateDetailsFragment
 @SuppressLint("Registered")
 class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
-    private lateinit var recyclerAdapter: RecyclerAdapter
+    private var recyclerAdapter = RecyclerAdapter { onItemClick(it) }
 
     @InjectPresenter
     lateinit var dateListPresenter: DateListPresenter
 
     @ProvidePresenter
-    fun initPresenter(): DateListPresenter = DateListPresenter(NumFacModel())
+    fun initPresenter(): DateListPresenter = DateListPresenter(NumFacModel)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_recycler, container, false)
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        recyclerAdapter = RecyclerAdapter { onItemClick(it) }
         val manager = LinearLayoutManager(context)
         recycler_view.adapter = recyclerAdapter
         recycler_view.addOnScrollListener(recyclerViewOnScrollListener)
         recycler_view.layoutManager = manager
         dateListPresenter.setDateList()
-
         recycler_fab.setOnClickListener {
             val dlg1 = DownloadSizeDialog()
-            dlg1.setTargetFragment(this,
+            dlg1.setTargetFragment(
+                this,
                 DIALOG_REQUEST_CODE
             )
             dlg1.show(fragmentManager, "dlg1")
@@ -52,7 +51,8 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
         if (requestCode == DIALOG_REQUEST_CODE) {
-            val editInt = data.getIntExtra("EDIT_TEXT_BUNDLE_KEY",
+            val editInt = data.getIntExtra(
+                "EDIT_TEXT_BUNDLE_KEY",
                 DEFAULT_TO_SCROLL
             )
             itemsToScroll = editInt
@@ -68,7 +68,8 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
             it.supportFragmentManager
                 .beginTransaction()
                 .addToBackStack("JoJo")
-                .replace(R.id.container,
+                .replace(
+                    R.id.container,
                     DateDetailsFragment.newInstance(num)
                 )
                 .commit()

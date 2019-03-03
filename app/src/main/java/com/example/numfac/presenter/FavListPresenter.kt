@@ -1,18 +1,22 @@
 package com.example.numfac.presenter
 
+import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
+import com.example.numfac.entity.DateDB
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.view.fragments.favList.FavListView
+import io.reactivex.rxkotlin.subscribeBy
 
 @InjectViewState
 class FavListPresenter(private val model: NumFacModel) : MvpPresenter<FavListView>() {
 
-    //TODO get list from DB
     fun setDateList() =
-        viewState.showDateList(model.getDateList())
+        model.getFavDateList().subscribeBy(onSuccess = {
+            viewState.showDateList(it)
+        },
+            onError = {})
 
-    fun openDate(int: Int) {
-        viewState.openDate(int)
-    }
+    fun openDate(dateDB: DateDB) =
+        viewState.openDate(dateDB)
 }
