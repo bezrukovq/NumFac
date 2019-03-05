@@ -9,11 +9,6 @@ import com.example.numfac.view.fragments.dateList.DateListView
 @InjectViewState
 class DateListPresenter(private val model: NumFacModel) : MvpPresenter<DateListView>() {
 
-    override fun onFirstViewAttach() {
-        super.onFirstViewAttach()
-    }
-
-    @VisibleForTesting
     fun setDateList() =
         viewState.showDateList(model.getDateList())
 

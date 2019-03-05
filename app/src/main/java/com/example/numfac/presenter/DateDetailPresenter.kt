@@ -19,7 +19,6 @@ class DateDetailPresenter(private val model: NumFacModel): MvpPresenter<DateView
     fun deleteFromFav(dateDB: DateDB) =
         model.deleteFromFavList(dateDB)
 
-    @VisibleForTesting
     @SuppressLint("CheckResult")
     fun getDateInfo(numDate: Int?) {
         if (numDate != null) {
