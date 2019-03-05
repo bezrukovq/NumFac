@@ -17,8 +17,6 @@ import kotlinx.android.synthetic.main.fragment_number_details.*
 
 class DateDetailsFragment : MvpAppCompatFragment(), DateView {
 
-    private var liked = false
-
     @InjectPresenter
     lateinit var dateDetailPresenter: DateDetailPresenter
 
@@ -31,38 +29,26 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
-            img_like.setOnClickListener { likePressed() }
+            img_like.setOnClickListener { dateDetailPresenter.likePressed(tv_fact.text.toString()) }
             val cached = arguments?.getBoolean(ARG_CACHED)
-            if (cached != null && cached)
-                showCached(arguments?.getString(ARG_TEXT).toString())
-            else
-                dateDetailPresenter.getDateInfo(arguments?.getInt("number"))
+            val textCached = arguments?.getString(ARG_TEXT).toString()
+            val numRequest = arguments?.getInt("number")
+            dateDetailPresenter.checkCached(cached,textCached,numRequest)
         }
     }
 
-    private fun likePressed() {
-        if (!liked)
-            like()
-        else
-            unlike()
-    }
 
-    private fun unlike() {
-        liked = false
+    override fun unlike() =
         img_like.setImageResource(R.drawable.ic_favorite)
-        dateDetailPresenter.deleteFromFav(DateDB(tv_fact.text as String))
-    }
 
-    private fun like() {
-        liked = true
+
+    override fun like() {
         img_like.setImageResource(R.drawable.ic_favorite_selected)
         Toast.makeText(this.context, "LIKED", Toast.LENGTH_LONG).show()
-        dateDetailPresenter.saveToFav(DateDB(tv_fact.text as String))
     }
 
-    fun showCached(text: String) {
+    override fun showCached(text: String) {
         tv_fact.text = text
-        liked = true
         img_like.setImageResource(R.drawable.ic_favorite_selected)
         img_like.visibility = View.VISIBLE
     }
