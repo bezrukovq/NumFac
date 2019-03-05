@@ -53,7 +53,7 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
         dateDetailPresenter.deleteFromFav(DateDB(tv_fact.text as String))
     }
 
-    private fun like() {
+    override fun like() {
         liked = true
         img_like.setImageResource(R.drawable.ic_favorite_selected)
         Toast.makeText(this.context, "LIKED", Toast.LENGTH_LONG).show()
@@ -103,7 +103,7 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
             val fragment = DateDetailsFragment()
             fragment.arguments = args
             return fragment
-        }
+       }
 
         fun newInstance(dateDB: DateDB): DateDetailsFragment {
             val args = Bundle()

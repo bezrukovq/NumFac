@@ -11,7 +11,7 @@ import io.reactivex.rxkotlin.subscribeBy
 class FavListPresenter(private val model: NumFacModel) : MvpPresenter<FavListView>() {
 
     fun setDateList() =
-        model.getFavDateList().subscribeBy(onSuccess = {
+        model.getFavDateList()?.subscribeBy(onSuccess = {
             viewState.showDateList(it)
         },
             onError = {})
