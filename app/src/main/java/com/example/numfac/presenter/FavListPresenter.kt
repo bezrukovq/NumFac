@@ -13,8 +13,7 @@ class FavListPresenter(private val model: NumFacModel) : MvpPresenter<FavListVie
     fun setDateList() =
         model.getFavDateList()?.subscribeBy(onSuccess = {
             viewState.showDateList(it)
-        },
-            onError = {})
+        })
 
     fun openDate(dateDB: DateDB) =
         viewState.openDate(dateDB)

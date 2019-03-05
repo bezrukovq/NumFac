@@ -72,7 +72,6 @@ class DateDetailPresenterTest {
     fun testGetDateInfoWithError() {
         //Arrange
         val expectedInt = -10
-        val mockDate = mock(Date::class.java)
         val expectedError = Throwable()
         val exeptionString = "smth go wrong"
         doReturn(Single.error<Date>(expectedError)).`when`(mockmodel).getDateInfo(-10 )

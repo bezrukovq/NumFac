@@ -15,7 +15,6 @@ class DateListPresenter(private val model: NumFacModel) : MvpPresenter<DateListV
     fun expendDateList(itemsCount: Int) =
         viewState.expandDateList(model.expandDateList(itemsCount))
 
-    fun openDate(int: Int) {
+    fun openDate(int: Int) =
         viewState.openDate(int)
-    }
 }
