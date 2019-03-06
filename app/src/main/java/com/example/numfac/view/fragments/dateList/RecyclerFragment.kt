@@ -21,7 +21,7 @@ import com.example.numfac.view.fragments.DateDetailsFragment
 @SuppressLint("Registered")
 class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
-    private var recyclerAdapter = RecyclerAdapter { onItemClick(it) }
+    private var recyclerAdapter: RecyclerAdapter? = null
 
     @InjectPresenter
     lateinit var dateListPresenter: DateListPresenter
@@ -35,6 +35,7 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         PaginationPreferences.init(context)
+        recyclerAdapter = RecyclerAdapter { onItemClick(it) }
         val manager = LinearLayoutManager(context)
         recycler_view.adapter = recyclerAdapter
         recycler_view.addOnScrollListener(recyclerViewOnScrollListener)
@@ -64,11 +65,11 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
     }
 
     override fun showDateList(dataList: ArrayList<Int>) {
-        recyclerAdapter.list = dataList
+        recyclerAdapter?.list = dataList
     }
 
     override fun expandDateList(dataList: ArrayList<Int>) {
-        recyclerAdapter.addAll(dataList)
+        recyclerAdapter?.addAll(dataList)
     }
 
     private val recyclerViewOnScrollListener = object : RecyclerView.OnScrollListener() {

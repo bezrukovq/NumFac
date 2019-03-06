@@ -28,7 +28,7 @@ object NumFacModel {
             "database"
         )
             .build()
-        db.let { dateRepository= DateRepository(it?.dateDao()) }
+        dateRepository = db?.dateDao()?.let { DateRepository(it) }
     }
 
     fun getFavDateList(): Single<List<DateDB>>? =

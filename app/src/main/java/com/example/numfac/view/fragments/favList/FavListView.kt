@@ -1,14 +1,14 @@
 package com.example.numfac.view.fragments.favList
 
 import com.arellomobile.mvp.MvpView
-import com.arellomobile.mvp.viewstate.strategy.AddToEndStrategy
-import com.arellomobile.mvp.viewstate.strategy.SkipStrategy
+import com.arellomobile.mvp.viewstate.strategy.AddToEndSingleStrategy
+import com.arellomobile.mvp.viewstate.strategy.OneExecutionStateStrategy
 import com.arellomobile.mvp.viewstate.strategy.StateStrategyType
 import com.example.numfac.entity.DateDB
 
-@StateStrategyType(value = AddToEndStrategy::class)
+@StateStrategyType(value = AddToEndSingleStrategy::class)
 interface FavListView : MvpView {
-    @StateStrategyType(value = SkipStrategy::class)
+    @StateStrategyType(value = OneExecutionStateStrategy::class)
     fun openDate(dateDB: DateDB)
     fun showDateList(dataList: List<DateDB>)
 }
