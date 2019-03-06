@@ -1,6 +1,5 @@
 package com.example.numfac.presenter
 
-import androidx.annotation.VisibleForTesting
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.numfac.model.NumFacModel

@@ -12,7 +12,7 @@ interface DateView: MvpView {
     fun showMonth(date: Date)
     fun showFact(date: Date)
     @StateStrategyType(value = OneExecutionStateStrategy::class)
-    fun showError(string: String)
+    fun showError(string: String?)
     fun showProgress()
     fun hideProgress()
     fun like()
