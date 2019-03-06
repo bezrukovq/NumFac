@@ -1,27 +1,56 @@
 package com.example.numfac.view.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import com.example.numfac.entity.Date
-import kotlinx.android.synthetic.main.fragment_number_details.*
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import com.arellomobile.mvp.MvpAppCompatFragment
+import com.arellomobile.mvp.presenter.InjectPresenter
+import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.numfac.R
+import com.example.numfac.entity.Date
+import com.example.numfac.entity.DateDB
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateDetailPresenter
+import kotlinx.android.synthetic.main.fragment_number_details.*
 
-class DateDetailsFragment : Fragment(), com.example.numfac.view.fragments.DateView {
+class DateDetailsFragment : MvpAppCompatFragment(), DateView {
 
-    private val dateDetailPresenter = DateDetailPresenter(NumFacModel(), this)
+    @InjectPresenter
+    lateinit var dateDetailPresenter: DateDetailPresenter
+
+    @ProvidePresenter
+    fun initPresenter(): DateDetailPresenter = DateDetailPresenter(NumFacModel)
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_number_details, container, false)
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dateDetailPresenter.getDateInfo(arguments?.getInt("number"))
+        if (savedInstanceState == null) {
+            img_like.setOnClickListener { dateDetailPresenter.likePressed(tv_fact.text.toString()) }
+            val cached = arguments?.getBoolean(ARG_CACHED)
+            val textCached = arguments?.getString(ARG_TEXT).toString()
+            val numRequest = arguments?.getInt("number")
+            dateDetailPresenter.checkCached(cached,textCached,numRequest)
+        }
+    }
+
+
+    override fun unlike() =
+        img_like.setImageResource(R.drawable.ic_favorite)
+
+
+    override fun like() {
+        img_like.setImageResource(R.drawable.ic_favorite_selected)
+        Toast.makeText(this.context, "LIKED", Toast.LENGTH_LONG).show()
+    }
+
+    override fun showCached(text: String) {
+        tv_fact.text = text
+        img_like.setImageResource(R.drawable.ic_favorite_selected)
+        img_like.visibility = View.VISIBLE
     }
 
     override fun showProgress() {
@@ -42,6 +71,7 @@ class DateDetailsFragment : Fragment(), com.example.numfac.view.fragments.DateVi
 
     override fun showFact(date: Date) {
         tv_fact?.text = date.text
+        img_like.visibility = View.VISIBLE
     }
 
     override fun showError(string: String) {
@@ -50,9 +80,21 @@ class DateDetailsFragment : Fragment(), com.example.numfac.view.fragments.DateVi
 
     companion object {
         const val ARG_SOME_NAME = "number"
+        const val ARG_TEXT = "text"
+        const val ARG_CACHED = "cached"
         fun newInstance(int: Int): DateDetailsFragment {
             val args = Bundle()
             args.putInt(ARG_SOME_NAME, int)
+            args.putBoolean(ARG_CACHED, false)
+            val fragment = DateDetailsFragment()
+            fragment.arguments = args
+            return fragment
+        }
+
+        fun newInstance(dateDB: DateDB): DateDetailsFragment {
+            val args = Bundle()
+            args.putString(ARG_TEXT, dateDB.text)
+            args.putBoolean(ARG_CACHED, true)
             val fragment = DateDetailsFragment()
             fragment.arguments = args
             return fragment

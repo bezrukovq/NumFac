@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">NumFac</string>
+    <string name="favourite">Favourite</string>
+    <string name="list">List</string>
+    <string name="like_button">like button</string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 </resources>

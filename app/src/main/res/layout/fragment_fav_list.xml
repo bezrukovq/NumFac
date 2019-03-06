@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -10,14 +9,5 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:listitem="@layout/number_item" />
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/recycler_fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="12dp"
-        android:backgroundTint="#000000"
-        android:src="@drawable/ic_pagination_settings_24dp" />
 
 </FrameLayout>
