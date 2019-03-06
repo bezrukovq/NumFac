@@ -8,7 +8,6 @@ import com.example.numfac.entity.Date
 
 @StateStrategyType(value = AddToEndSingleStrategy::class)
 interface DateView: MvpView {
-    fun like()
     fun showDate(date: Date)
     fun showMonth(date: Date)
     fun showFact(date: Date)
