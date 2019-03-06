@@ -41,7 +41,6 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
     override fun unlike() =
         img_like.setImageResource(R.drawable.ic_favorite)
 
-
     override fun like() {
         img_like.setImageResource(R.drawable.ic_favorite_selected)
         Toast.makeText(this.context, "LIKED", Toast.LENGTH_LONG).show()
@@ -89,7 +88,7 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
             val fragment = DateDetailsFragment()
             fragment.arguments = args
             return fragment
-        }
+       }
 
         fun newInstance(dateDB: DateDB): DateDetailsFragment {
             val args = Bundle()

@@ -1,5 +1,6 @@
 package com.example.numfac.presenter
 
+import androidx.annotation.VisibleForTesting
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.numfac.model.NumFacModel
@@ -14,7 +15,6 @@ class DateListPresenter(private val model: NumFacModel) : MvpPresenter<DateListV
     fun expendDateList(itemsCount: Int) =
         viewState.expandDateList(model.expandDateList(itemsCount))
 
-    fun openDate(int: Int) {
+    fun openDate(int: Int) =
         viewState.openDate(int)
-    }
 }
