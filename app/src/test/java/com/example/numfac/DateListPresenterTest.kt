@@ -57,4 +57,5 @@ class DateListPresenterTest {
         //Assert
         verify(mockViewState).openDate(expectedNum)
     }
+
 }

@@ -1,6 +1,5 @@
 package com.example.numfac
 
-import com.example.numfac.entity.Date
 import com.example.numfac.entity.DateDB
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.FavListPresenter
@@ -9,12 +8,8 @@ import io.reactivex.Single
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.InjectMocks
-import org.mockito.Mock
-import org.mockito.Mockito
-import org.mockito.Mockito.doReturn
-import org.mockito.Mockito.verify
-import org.mockito.Spy
+import org.mockito.*
+import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 
 @RunWith(MockitoJUnitRunner::class)
@@ -43,6 +38,17 @@ class FavListPresenterTest {
         //Assert
         verify(mockmodel).getFavDateList()
         verify(mockViewState).showDateList(datesList)
+    }
+
+    @Test
+    fun testSetDateListWithError(){
+        val expectedError = Throwable()
+        doReturn(Single.just(Single.error<List<DateDB>>(expectedError))).`when`(mockmodel).getFavDateList()
+        //Act
+        presenter.setDateList()
+        //Assert
+        verify(mockmodel).getFavDateList()
+        verify(mockViewState, never()).showDateList(ArgumentMatchers.anyList())
     }
 
     @Test
