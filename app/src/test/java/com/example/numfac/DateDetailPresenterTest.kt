@@ -16,7 +16,6 @@ import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
 import kotlin.math.exp
 
-
 @RunWith(MockitoJUnitRunner::class)
 class DateDetailPresenterTest {
 
@@ -92,7 +91,6 @@ class DateDetailPresenterTest {
         verify(mockmodel, never()).getDateInfo(ArgumentMatchers.anyInt())
     }
 
-
     @Test
     fun testCheckCachedWhenCached(){
         //Arrange
@@ -128,6 +126,7 @@ class DateDetailPresenterTest {
         verify(mockViewState).like()
         assert(presenter.isLiked)
     }
+    
     @Test
     fun likePressedWhenLiked(){
         //Arrange
@@ -140,5 +139,4 @@ class DateDetailPresenterTest {
         verify(mockViewState).unlike()
         assert(!presenter.isLiked)
     }
-
 }
