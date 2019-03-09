@@ -12,7 +12,6 @@ import org.mockito.Mockito.verify
 import org.mockito.Spy
 import org.mockito.junit.MockitoJUnitRunner
 
-
 @RunWith(MockitoJUnitRunner::class)
 class DateListPresenterTest {
 
@@ -57,5 +56,4 @@ class DateListPresenterTest {
         //Assert
         verify(mockViewState).openDate(expectedNum)
     }
-
 }
