@@ -1,4 +1,4 @@
-package com.example.numfac.DI.module
+package com.example.numfac.di.module
 
 import android.app.Application
 import android.content.Context

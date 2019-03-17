@@ -1,4 +1,4 @@
-package com.example.numfac.DI.module
+package com.example.numfac.di.module
 
 import com.example.numfac.model.NumFacApiService
 import dagger.Module
@@ -11,6 +11,6 @@ class ServiceModule {
 
     @Provides
     @Singleton
-    fun provideComicsService(retrofit: Retrofit): NumFacApiService =
+    fun provideNumFacApiService(retrofit: Retrofit): NumFacApiService =
         retrofit.create(NumFacApiService::class.java)
 }

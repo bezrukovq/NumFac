@@ -1,4 +1,4 @@
-package com.example.numfac.DI.scope
+package com.example.numfac.di.scope
 
 import javax.inject.Scope
 

@@ -1,9 +1,9 @@
-package com.example.numfac.DI.component
+package com.example.numfac.di.component
 
 import android.content.Context
-import com.example.numfac.DI.module.ServiceModule
-import com.example.numfac.DI.module.NetModule
-import com.example.numfac.DI.module.AppModule
+import com.example.numfac.di.module.ServiceModule
+import com.example.numfac.di.module.NetModule
+import com.example.numfac.di.module.AppModule
 import com.example.numfac.model.NumFacApiService
 import dagger.Component
 import javax.inject.Singleton
@@ -17,6 +17,5 @@ interface AppComponent {
 
     fun provideApp(): Context
 
-    fun NumFacApiService(): NumFacApiService
-
+    fun numFacApiService(): NumFacApiService
 }

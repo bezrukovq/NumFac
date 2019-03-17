@@ -9,19 +9,33 @@ import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.numfac.R
+import com.example.numfac.di.component.DaggerDateComponent
+import com.example.numfac.di.module.DateModule
 import com.example.numfac.entity.Date
 import com.example.numfac.entity.DateDB
-import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateDetailPresenter
+import com.example.numfac.view.MainActivity
 import kotlinx.android.synthetic.main.fragment_number_details.*
+import javax.inject.Inject
 
 class DateDetailsFragment : MvpAppCompatFragment(), DateView {
 
+    @Inject
     @InjectPresenter
     lateinit var dateDetailPresenter: DateDetailPresenter
 
     @ProvidePresenter
-    fun initPresenter(): DateDetailPresenter = DateDetailPresenter(NumFacModel)
+    fun initPresenter() = dateDetailPresenter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        DaggerDateComponent
+            .builder()
+            .appComponent(MainActivity.appComponent)
+            .dateModule(DateModule())
+            .build()
+            .inject(this)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_number_details, container, false)
