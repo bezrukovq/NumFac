@@ -10,21 +10,35 @@ import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.numfac.R
+import com.example.numfac.di.component.DaggerDateComponent
+import com.example.numfac.di.module.DateModule
 import com.example.numfac.entity.DateDB
-import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.FavListPresenter
+import com.example.numfac.view.MainActivity
 import com.example.numfac.view.fragments.DateDetailsFragment
 import kotlinx.android.synthetic.main.fragment_recycler.*
+import javax.inject.Inject
 
-class FavListFragment : MvpAppCompatFragment(),FavListView {
+class FavListFragment : MvpAppCompatFragment(), FavListView {
+    //hz kak v dagger
+    private var favListAdapter = FavListAdapter { onItemClick(it) }
 
-    private var favListAdapter=FavListAdapter { onItemClick(it) }
-
+    @Inject
     @InjectPresenter
     lateinit var favListPresenter: FavListPresenter
 
     @ProvidePresenter
-    fun initPresenter(): FavListPresenter = FavListPresenter(NumFacModel)
+    fun initPresenter() = favListPresenter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        DaggerDateComponent
+            .builder()
+            .appComponent(MainActivity.appComponent)
+            .dateModule(DateModule())
+            .build()
+            .inject(this)
+        super.onCreate(savedInstanceState)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? =
         inflater.inflate(R.layout.fragment_fav_list, container, false)
@@ -45,7 +59,8 @@ class FavListFragment : MvpAppCompatFragment(),FavListView {
             it.supportFragmentManager
                 .beginTransaction()
                 .addToBackStack("JoJo")
-                .replace(R.id.container,
+                .replace(
+                    R.id.container,
                     DateDetailsFragment.newInstance(dateDB)
                 )
                 .commit()
@@ -55,7 +70,7 @@ class FavListFragment : MvpAppCompatFragment(),FavListView {
     override fun showDateList(dataList: List<DateDB>) {
         favListAdapter.favList = dataList
         favListAdapter.notifyDataSetChanged()
-        if (favListAdapter.favList.size==0)
-            Toast.makeText(this.context,"You haven't liked anything yet",Toast.LENGTH_LONG).show()
+        if (favListAdapter.favList.size == 0)
+            Toast.makeText(this.context, "You haven't liked anything yet", Toast.LENGTH_LONG).show()
     }
 }

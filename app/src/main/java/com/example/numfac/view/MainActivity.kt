@@ -5,11 +5,18 @@ import android.view.Menu
 import android.view.MenuItem
 import com.arellomobile.mvp.MvpAppCompatActivity
 import com.example.numfac.R
-import com.example.numfac.model.NumFacModel
+import com.example.numfac.di.component.AppComponent
+import com.example.numfac.di.component.DaggerAppComponent
+import com.example.numfac.di.module.AppModule
+import com.example.numfac.di.module.NetModule
+import com.example.numfac.di.module.ServiceModule
 import com.example.numfac.view.fragments.dateList.RecyclerFragment
 import com.example.numfac.view.fragments.favList.FavListFragment
 
 class MainActivity : MvpAppCompatActivity() {
+    companion object {
+        var appComponent: AppComponent? = null
+    }
 
     private var listSelected = true
     private var menu: Menu? = null
@@ -18,7 +25,11 @@ class MainActivity : MvpAppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         if (savedInstanceState == null) {
-            NumFacModel.setDB(applicationContext)
+                appComponent =DaggerAppComponent.builder()
+                    .appModule(AppModule(this.application))
+                    .netModule(NetModule())
+                    .serviceModule(ServiceModule())
+                    .build()
             supportFragmentManager
                 .beginTransaction()
                 .replace(R.id.container, RecyclerFragment.newInstance())
