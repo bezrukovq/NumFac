@@ -29,7 +29,7 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
-            img_like.setOnClickListener { dateDetailPresenter.likePressed(tv_fact.text.toString()) }
+            img_like.setOnClickListener { dateDetailPresenter.likePressed(DateDB(tv_fact.text.toString())) }
             val cached = arguments?.getBoolean(ARG_CACHED)
             val textCached = arguments?.getString(ARG_TEXT).toString()
             val numRequest = arguments?.getInt("number")
@@ -40,7 +40,6 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
 
     override fun unlike() =
         img_like.setImageResource(R.drawable.ic_favorite)
-
 
     override fun like() {
         img_like.setImageResource(R.drawable.ic_favorite_selected)
@@ -74,7 +73,7 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
         img_like.visibility = View.VISIBLE
     }
 
-    override fun showError(string: String) {
+    override fun showError(string: String?) {
         tv_fact?.text = string
     }
 
@@ -89,7 +88,7 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
             val fragment = DateDetailsFragment()
             fragment.arguments = args
             return fragment
-        }
+       }
 
         fun newInstance(dateDB: DateDB): DateDetailsFragment {
             val args = Bundle()

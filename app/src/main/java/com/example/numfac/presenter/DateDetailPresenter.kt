@@ -1,7 +1,6 @@
 package com.example.numfac.presenter
 
 import android.annotation.SuppressLint
-import android.util.Log
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.numfac.entity.DateDB
@@ -11,7 +10,8 @@ import io.reactivex.rxkotlin.subscribeBy
 
 @InjectViewState
 class DateDetailPresenter(private val model: NumFacModel) : MvpPresenter<DateView>() {
-    private var isLiked = false
+
+    var isLiked = false
 
     fun saveToFav(dateDB: DateDB) =
         model.addToFavList(dateDB)
@@ -19,14 +19,14 @@ class DateDetailPresenter(private val model: NumFacModel) : MvpPresenter<DateVie
     fun deleteFromFav(dateDB: DateDB) =
         model.deleteFromFavList(dateDB)
 
-    fun likePressed(text: String) {
+    fun likePressed(dateDB: DateDB) {
         if (!isLiked) {
             isLiked = true
-            saveToFav(DateDB(text))
+            saveToFav(dateDB)
             viewState.like()
         } else {
             isLiked = false
-            deleteFromFav(DateDB(text))
+            deleteFromFav(dateDB)
             viewState.unlike()
         }
     }
@@ -34,18 +34,15 @@ class DateDetailPresenter(private val model: NumFacModel) : MvpPresenter<DateVie
     @SuppressLint("CheckResult")
     fun getDateInfo(numDate: Int?) {
         if (numDate != null) {
-            Log.v("DateDetailPresenter", "Working on it")
             model.getDateInfo(numDate)
                 .doOnSubscribe { viewState.showProgress() }
                 .doAfterTerminate { viewState.hideProgress() }
                 .subscribeBy(onSuccess = {
-                    Log.v("DateDetailPresenter", "Got it")
                     viewState.showDate(it)
                     viewState.showMonth(it)
                     viewState.showFact(it)
                 }, onError = {
-                    Log.v("DateDetailPresenter", "Error" + it.message)
-                    it.message?.let { viewState.showError(it) }
+                    viewState.showError(it.message)
                 })
         }
     }
