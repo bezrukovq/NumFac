@@ -16,6 +16,7 @@ import com.example.numfac.entity.DateDB
 import com.example.numfac.presenter.DateDetailPresenter
 import com.example.numfac.view.MainActivity
 import kotlinx.android.synthetic.main.fragment_number_details.*
+import ru.terrakok.cicerone.Screen
 import javax.inject.Inject
 
 class DateDetailsFragment : MvpAppCompatFragment(), DateView {
@@ -47,10 +48,9 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
             val cached = arguments?.getBoolean(ARG_CACHED)
             val textCached = arguments?.getString(ARG_TEXT).toString()
             val numRequest = arguments?.getInt("number")
-            dateDetailPresenter.checkCached(cached,textCached,numRequest)
+            dateDetailPresenter.checkCached(cached, textCached, numRequest)
         }
     }
-
 
     override fun unlike() =
         img_like.setImageResource(R.drawable.ic_favorite)
@@ -102,7 +102,7 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
             val fragment = DateDetailsFragment()
             fragment.arguments = args
             return fragment
-       }
+        }
 
         fun newInstance(dateDB: DateDB): DateDetailsFragment {
             val args = Bundle()
