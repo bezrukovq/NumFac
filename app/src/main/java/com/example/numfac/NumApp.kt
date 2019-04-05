@@ -10,16 +10,16 @@ class NumApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+        INSTANCE = this
         cicerone = Cicerone.create()
     }
 
-    fun getNavigatorHolder(): NavigatorHolder {
-        return cicerone.navigatorHolder
-    }
+    fun getNavigatorHolder(): NavigatorHolder =
+        cicerone.navigatorHolder
 
-    fun getRouter(): Router {
-        return cicerone.router
-    }
+    fun getRouter(): Router =
+        cicerone.router
+
     companion object {
         lateinit var INSTANCE: NumApp
     }

@@ -11,6 +11,7 @@ import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateDetailPresenter
 import com.example.numfac.presenter.DateListPresenter
 import com.example.numfac.presenter.FavListPresenter
+import com.example.numfac.presenter.MainActivityPresenter
 import com.example.numfac.view.fragments.dateList.RecyclerAdapter
 import dagger.Module
 import dagger.Provides
@@ -21,6 +22,10 @@ class DateModule {
     @Provides
     @DateScope
     fun provideDateListPresenter(model: NumFacModel): DateListPresenter = DateListPresenter(model)
+
+    @Provides
+    @DateScope
+    fun provideMainActivityPresenter(): MainActivityPresenter = MainActivityPresenter()
 
     @Provides
     @DateScope

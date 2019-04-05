@@ -19,6 +19,10 @@ class MainActivityPresenter : MvpPresenter<MainActivityView>() {
         router.exit()
     }
 
+    fun init(){
+        router.replaceScreen(Screens.DateListScreen())
+    }
+
     fun onDateListClick() {
         router.navigateTo(Screens.DateListScreen())
     }

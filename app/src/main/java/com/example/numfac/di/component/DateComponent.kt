@@ -2,6 +2,7 @@ package com.example.numfac.di.component
 
 import com.example.numfac.di.module.DateModule
 import com.example.numfac.di.scope.DateScope
+import com.example.numfac.view.MainActivity
 import com.example.numfac.view.fragments.DateDetailsFragment
 import com.example.numfac.view.fragments.dateList.RecyclerFragment
 import com.example.numfac.view.fragments.favList.FavListFragment
@@ -16,4 +17,6 @@ interface DateComponent {
     fun inject(recyclerFragment: RecyclerFragment)
 
     fun inject(favListFragment: FavListFragment)
+
+    fun inject(mainActivity: MainActivity)
 }

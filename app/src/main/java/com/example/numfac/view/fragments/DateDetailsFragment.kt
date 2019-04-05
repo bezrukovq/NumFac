@@ -16,7 +16,6 @@ import com.example.numfac.entity.DateDB
 import com.example.numfac.presenter.DateDetailPresenter
 import com.example.numfac.view.MainActivity
 import kotlinx.android.synthetic.main.fragment_number_details.*
-import ru.terrakok.cicerone.Screen
 import javax.inject.Inject
 
 class DateDetailsFragment : MvpAppCompatFragment(), DateView {

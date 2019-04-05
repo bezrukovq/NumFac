@@ -17,7 +17,6 @@ import com.example.numfac.model.PaginationPreferences
 import com.example.numfac.presenter.DateListPresenter
 import com.example.numfac.view.MainActivity
 import com.example.numfac.view.dialogs.DownloadSizeDialog
-import com.example.numfac.view.fragments.DateDetailsFragment
 import kotlinx.android.synthetic.main.fragment_recycler.*
 import javax.inject.Inject
 
@@ -62,20 +61,6 @@ class RecyclerFragment : MvpAppCompatFragment(), DateListView {
 
     private fun onItemClick(int: Int) =
         dateListPresenter.openDate(int)
-
-
-    override fun openDate(num: Int) {
-        activity?.let {
-            it.supportFragmentManager
-                .beginTransaction()
-                .addToBackStack("JoJo")
-                .replace(
-                    R.id.container,
-                    DateDetailsFragment.newInstance(num)
-                )
-                .commit()
-        }
-    }
 
     override fun showDateList(dataList: ArrayList<Int>) {
         recyclerAdapter.list = dataList

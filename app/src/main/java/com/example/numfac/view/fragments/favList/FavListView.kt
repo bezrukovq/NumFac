@@ -9,6 +9,5 @@ import com.example.numfac.entity.DateDB
 @StateStrategyType(value = AddToEndSingleStrategy::class)
 interface FavListView : MvpView {
     @StateStrategyType(value = OneExecutionStateStrategy::class)
-    fun openDate(dateDB: DateDB)
     fun showDateList(dataList: List<DateDB>)
 }
