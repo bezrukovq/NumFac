@@ -43,10 +43,7 @@ class MainActivity : MvpAppCompatActivity(), MainActivityView {
             .appComponent(appComponent)
             .build().inject(this)
         super.onCreate(savedInstanceState)
-        NumApp.INSTANCE.getNavigatorHolder().setNavigator(navigator)
         setContentView(R.layout.activity_main)
-        presenter.init()
-
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -77,6 +74,11 @@ class MainActivity : MvpAppCompatActivity(), MainActivityView {
             }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onResume() {
+        super.onResume()
+        NumApp.INSTANCE.getNavigatorHolder().setNavigator(navigator)
     }
 
     companion object {

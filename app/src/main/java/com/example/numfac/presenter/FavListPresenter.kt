@@ -11,13 +11,7 @@ import io.reactivex.rxkotlin.subscribeBy
 import ru.terrakok.cicerone.Router
 
 @InjectViewState
-class FavListPresenter(private val model: NumFacModel) : MvpPresenter<FavListView>() {
-
-    private var router: Router
-
-    init {
-        router = NumApp.INSTANCE.getRouter()
-    }
+class FavListPresenter(private val model: NumFacModel, private val router: Router) : MvpPresenter<FavListView>() {
 
     fun setDateList() =
         model.getFavDateList()?.subscribeBy(onSuccess = {

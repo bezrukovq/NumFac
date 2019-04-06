@@ -9,13 +9,7 @@ import com.example.numfac.view.fragments.dateList.DateListView
 import ru.terrakok.cicerone.Router
 
 @InjectViewState
-class DateListPresenter(private val model: NumFacModel) : MvpPresenter<DateListView>() {
-
-    private var router: Router
-
-    init{
-        router = NumApp.INSTANCE.getRouter()
-    }
+class DateListPresenter(private val model: NumFacModel, private val router: Router) : MvpPresenter<DateListView>() {
 
     fun setDateList() =
         viewState.showDateList(model.getDateList())
