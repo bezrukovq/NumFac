@@ -2,6 +2,7 @@ package com.example.numfac
 
 import com.example.numfac.entity.DateDB
 import com.example.numfac.model.NumFacModel
+import com.example.numfac.navigation.Screens
 import com.example.numfac.presenter.FavListPresenter
 import com.example.numfac.view.fragments.favList.`FavListView$$State`
 import io.reactivex.Single
@@ -11,6 +12,7 @@ import org.junit.runner.RunWith
 import org.mockito.*
 import org.mockito.Mockito.*
 import org.mockito.junit.MockitoJUnitRunner
+import ru.terrakok.cicerone.Router
 
 @RunWith(MockitoJUnitRunner::class)
 class FavListPresenterTest {
@@ -20,6 +22,9 @@ class FavListPresenterTest {
 
     @Mock
     lateinit var mockmodel: NumFacModel
+
+    @Mock
+    lateinit var mockRouter: Router
 
     @InjectMocks
     @Spy
@@ -58,6 +63,6 @@ class FavListPresenterTest {
         //Act
         presenter.openDate(mockDateDB)
         //Assert
-        verify(mockViewState).openDate(mockDateDB)
+        verify(presenter.router).navigateTo(ArgumentMatchers.argThat({x->true}))
     }
 }
