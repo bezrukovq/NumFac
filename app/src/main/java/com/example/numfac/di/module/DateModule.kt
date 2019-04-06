@@ -22,7 +22,8 @@ class DateModule {
 
     @Provides
     @DateScope
-    fun provideDateListPresenter(model: NumFacModel, router: Router): DateListPresenter = DateListPresenter(model, router)
+    fun provideDateListPresenter(model: NumFacModel, router: Router): DateListPresenter =
+        DateListPresenter(model, router)
 
     @Provides
     @DateScope

@@ -2,7 +2,6 @@ package com.example.numfac.presenter
 
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
-import com.example.numfac.NumApp
 import com.example.numfac.entity.DateDB
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.navigation.Screens
