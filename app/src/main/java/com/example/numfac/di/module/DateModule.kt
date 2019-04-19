@@ -11,16 +11,23 @@ import com.example.numfac.model.NumFacModel
 import com.example.numfac.presenter.DateDetailPresenter
 import com.example.numfac.presenter.DateListPresenter
 import com.example.numfac.presenter.FavListPresenter
+import com.example.numfac.presenter.MainActivityPresenter
 import com.example.numfac.view.fragments.dateList.RecyclerAdapter
 import dagger.Module
 import dagger.Provides
+import ru.terrakok.cicerone.Router
 
 @Module
 class DateModule {
 
     @Provides
     @DateScope
-    fun provideDateListPresenter(model: NumFacModel): DateListPresenter = DateListPresenter(model)
+    fun provideDateListPresenter(model: NumFacModel, router: Router): DateListPresenter =
+        DateListPresenter(model, router)
+
+    @Provides
+    @DateScope
+    fun provideMainActivityPresenter(router: Router): MainActivityPresenter = MainActivityPresenter(router)
 
     @Provides
     @DateScope
@@ -28,7 +35,7 @@ class DateModule {
 
     @Provides
     @DateScope
-    fun provideFavListPresenter(model: NumFacModel): FavListPresenter = FavListPresenter(model)
+    fun provideFavListPresenter(model: NumFacModel, router: Router): FavListPresenter = FavListPresenter(model, router)
 
     @Provides
     @DateScope

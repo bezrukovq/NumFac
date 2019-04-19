@@ -15,7 +15,6 @@ import com.example.numfac.di.module.DateModule
 import com.example.numfac.entity.DateDB
 import com.example.numfac.presenter.FavListPresenter
 import com.example.numfac.view.MainActivity
-import com.example.numfac.view.fragments.DateDetailsFragment
 import kotlinx.android.synthetic.main.fragment_recycler.*
 import javax.inject.Inject
 
@@ -54,18 +53,6 @@ class FavListFragment : MvpAppCompatFragment(), FavListView {
     private fun onItemClick(dateDB: DateDB) =
         favListPresenter.openDate(dateDB)
 
-    override fun openDate(dateDB: DateDB) {
-        activity?.let {
-            it.supportFragmentManager
-                .beginTransaction()
-                .addToBackStack("JoJo")
-                .replace(
-                    R.id.container,
-                    DateDetailsFragment.newInstance(dateDB)
-                )
-                .commit()
-        }
-    }
 
     override fun showDateList(dataList: List<DateDB>) {
         favListAdapter.favList = dataList

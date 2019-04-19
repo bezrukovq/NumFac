@@ -6,6 +6,7 @@ import com.example.numfac.di.module.NetModule
 import com.example.numfac.di.module.AppModule
 import com.example.numfac.model.NumFacApiService
 import dagger.Component
+import ru.terrakok.cicerone.Router
 import javax.inject.Singleton
 
 @Singleton
@@ -14,6 +15,8 @@ import javax.inject.Singleton
     NetModule::class,
     ServiceModule::class])
 interface AppComponent {
+
+    fun provideRouter(): Router
 
     fun provideApp(): Context
 
