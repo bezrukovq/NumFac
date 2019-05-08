@@ -52,7 +52,7 @@ class DateDetailPresenter(private val model: NumFacModel) : MvpPresenter<DateVie
                         }
                     } catch (e: HttpException) {
                         viewState.showError(e.message())
-                    } 
+                    }
                 }
             }
         }

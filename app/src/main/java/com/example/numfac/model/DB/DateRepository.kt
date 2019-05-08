@@ -20,9 +20,6 @@ class DateRepository(val dateDAO: DateDAO) {
 
     suspend fun getAllDates(): Deferred<Response<List<DateDB>>>? =
         withContext(Dispatchers.IO) {
-            dateDAO.run {
-                getAllFavDates()
-            }
+            dateDAO.getAllFavDates()
         }
-
 }
