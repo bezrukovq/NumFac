@@ -6,7 +6,6 @@ import com.example.numfac.entity.DateDB
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.navigation.Screens
 import com.example.numfac.view.fragments.favList.FavListView
-import io.reactivex.rxkotlin.subscribeBy
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

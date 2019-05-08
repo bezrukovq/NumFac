@@ -1,6 +1,5 @@
 package com.example.numfac.presenter
 
-import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.numfac.entity.DateDB
@@ -53,9 +52,7 @@ class DateDetailPresenter(private val model: NumFacModel) : MvpPresenter<DateVie
                         }
                     } catch (e: HttpException) {
                         viewState.showError(e.message())
-                    } catch (e: Throwable) {
-                        viewState.showError(e.message)
-                    }
+                    } 
                 }
             }
         }
