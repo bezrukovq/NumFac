@@ -43,12 +43,16 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
-            img_like.setOnClickListener { dateDetailPresenter.likePressed(DateDB(tv_fact.text.toString())) }
+            img_like.setOnClickListener {initLikePressed()}
             val cached = arguments?.getBoolean(ARG_CACHED)
             val textCached = arguments?.getString(ARG_TEXT).toString()
             val numRequest = arguments?.getInt("number")
             dateDetailPresenter.checkCached(cached, textCached, numRequest)
         }
+    }
+
+    fun initLikePressed(){
+        dateDetailPresenter.likePressed(dateDB = DateDB(tv_fact.text.toString()))
     }
 
     override fun unlike() =

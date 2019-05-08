@@ -5,7 +5,7 @@ import ru.terrakok.cicerone.Cicerone
 import ru.terrakok.cicerone.Router
 import ru.terrakok.cicerone.NavigatorHolder
 
-class NumApp : Application() {
+class  NumApp : Application() {
     private lateinit var cicerone: Cicerone<Router>
 
     override fun onCreate() {

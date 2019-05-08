@@ -1,27 +1,28 @@
 package com.example.numfac.model.DB
 
 import com.example.numfac.entity.DateDB
-import io.reactivex.Completable
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.Response
 
 class DateRepository(val dateDAO: DateDAO) {
 
-    fun addDate(dateDB: DateDB) =
-        Completable.fromAction { dateDAO.insert(dateDB) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-
-    fun deleteDate(dateDB: DateDB) =
-        Completable.fromAction { dateDAO.delete(dateDB.text) }
-            .subscribeOn(Schedulers.io())
-            .observeOn(AndroidSchedulers.mainThread())
-
-    fun getAllDates(): Single<List<DateDB>>? =
-        dateDAO.run {
-            getAllFavDates()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
+    suspend fun addDate(dateDB: DateDB) =
+        withContext(Dispatchers.IO) {
+            dateDAO.insert(dateDB)
         }
+
+    suspend fun deleteDate(dateDB: DateDB) =
+        withContext(Dispatchers.IO) {
+            dateDAO.delete(dateDB.text)
+        }
+
+    suspend fun getAllDates(): Deferred<Response<List<DateDB>>>? =
+        withContext(Dispatchers.IO) {
+            dateDAO.run {
+                getAllFavDates()
+            }
+        }
+
 }
