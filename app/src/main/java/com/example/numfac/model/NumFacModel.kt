@@ -13,16 +13,16 @@ class NumFacModel(val numFacApiService: NumFacApiService, val dateRepository: Da
 
     private var curNumber = 0
 
-    fun getFavDateList(): Deferred<Response<List<DateDB>>>? =
+    suspend fun getFavDateList(): Deferred<Response<List<DateDB>>>? =
         dateRepository.getAllDates()
 
-    fun addToFavList(dateDB: DateDB) =
+    suspend fun addToFavList(dateDB: DateDB) =
         dateRepository.addDate(dateDB)
 
-    fun deleteFromFavList(dateDB: DateDB) =
+    suspend fun deleteFromFavList(dateDB: DateDB) =
         dateRepository.deleteDate(dateDB)
 
-    fun getDateInfo(numDate: Int): Deferred<Response<Date>> =
+    suspend fun getDateInfo(numDate: Int): Deferred<Response<Date>> =
         withContext(Dispatchers.IO) {
             numFacApiService.getDateInfo(numDate)
         }

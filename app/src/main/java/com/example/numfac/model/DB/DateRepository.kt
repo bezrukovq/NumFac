@@ -18,7 +18,7 @@ class DateRepository(val dateDAO: DateDAO) {
             dateDAO.delete(dateDB.text)
         }
 
-    suspend fun getAllDates(): Deferred<Response<List<DateDB>>>? =
+    suspend fun getAllDates(): Deferred<Response<List<DateDB>>> =
         withContext(Dispatchers.IO) {
             dateDAO.getAllFavDates()
         }

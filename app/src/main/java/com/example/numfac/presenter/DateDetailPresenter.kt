@@ -7,6 +7,7 @@ import com.example.numfac.model.NumFacModel
 import com.example.numfac.view.fragments.DateView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
@@ -16,13 +17,13 @@ class DateDetailPresenter(private val model: NumFacModel) : MvpPresenter<DateVie
 
     var isLiked = false
 
-    fun saveToFav(dateDB: DateDB) =
+    suspend fun saveToFav(dateDB: DateDB) =
         model.addToFavList(dateDB)
 
-    fun deleteFromFav(dateDB: DateDB) =
+    suspend fun deleteFromFav(dateDB: DateDB) =
         model.deleteFromFavList(dateDB)
 
-    fun likePressed(dateDB: DateDB) {
+    suspend fun likePressed(dateDB: DateDB) {
         if (!isLiked) {
             isLiked = true
             saveToFav(dateDB)
