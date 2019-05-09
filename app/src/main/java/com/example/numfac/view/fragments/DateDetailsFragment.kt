@@ -10,9 +10,7 @@ import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.numfac.R
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 import com.example.numfac.di.component.DaggerDateComponent
 import com.example.numfac.di.module.DateModule
 import com.example.numfac.entity.Date

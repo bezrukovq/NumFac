@@ -7,7 +7,6 @@ import com.example.numfac.model.NumFacModel
 import com.example.numfac.view.fragments.DateView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.android.awaitFrame
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import retrofit2.HttpException
