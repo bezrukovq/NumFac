@@ -9,14 +9,13 @@ import com.example.numfac.view.fragments.favList.FavListView
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import ru.terrakok.cicerone.Router
 
 @InjectViewState
 class FavListPresenter(private val model: NumFacModel, val router: Router) : MvpPresenter<FavListView>() {
 
      fun setDateList() {
-        CoroutineScope(Dispatchers.IO).launch {
+        CoroutineScope(Dispatchers.Main).launch {
             viewState.showDateList(model.getFavDateList())
         }
     }

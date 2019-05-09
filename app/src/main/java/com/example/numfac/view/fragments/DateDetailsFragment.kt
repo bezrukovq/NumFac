@@ -65,7 +65,6 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
 
     override fun like() {
         img_like.setImageResource(R.drawable.ic_favorite_selected)
-        Toast.makeText(this.context, "LIKED", Toast.LENGTH_LONG).show()
     }
 
     override fun showCached(text: String) {
