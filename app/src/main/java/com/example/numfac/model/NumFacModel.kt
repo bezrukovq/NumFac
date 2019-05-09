@@ -13,7 +13,7 @@ class NumFacModel(val numFacApiService: NumFacApiService, val dateRepository: Da
 
     private var curNumber = 0
 
-    suspend fun getFavDateList(): Deferred<Response<List<DateDB>>>? =
+    fun getFavDateList(): Deferred<Response<List<DateDB>>>? =
         dateRepository.getAllDates()
 
     suspend fun addToFavList(dateDB: DateDB) =

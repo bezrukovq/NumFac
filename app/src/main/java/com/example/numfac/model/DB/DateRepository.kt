@@ -6,7 +6,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import retrofit2.Response
 
-class DateRepository(val dateDAO: DateDAO) {
+class DateRepository(private val dateDAO: DateDAO) {
 
     suspend fun addDate(dateDB: DateDB) =
         withContext(Dispatchers.IO) {
@@ -18,8 +18,7 @@ class DateRepository(val dateDAO: DateDAO) {
             dateDAO.delete(dateDB.text)
         }
 
-    suspend fun getAllDates(): Deferred<Response<List<DateDB>>> =
-        withContext(Dispatchers.IO) {
-            dateDAO.getAllFavDates()
-        }
+    fun getAllDates(): Deferred<Response<List<DateDB>>> =
+        dateDAO.getAllFavDates()
+
 }

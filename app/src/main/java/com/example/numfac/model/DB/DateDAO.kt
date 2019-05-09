@@ -11,7 +11,7 @@ import retrofit2.Response
 interface DateDAO {
 
     @Query("select * from date")
-    suspend fun getAllFavDates(): Response<List<DateDB>>
+    fun getAllFavDates(): Deferred<Response<List<DateDB>>>
 
     @Insert
     fun insert(dateDB: DateDB)
