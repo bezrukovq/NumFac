@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.numfac.entity.DateDB
+import io.reactivex.Single
 import kotlinx.coroutines.Deferred
 import retrofit2.Response
 
@@ -11,7 +12,7 @@ import retrofit2.Response
 interface DateDAO {
 
     @Query("select * from date")
-    fun getAllFavDates(): Deferred<Response<List<DateDB>>>
+    fun getAllFavDates(): List<DateDB>
 
     @Insert
     fun insert(dateDB: DateDB)

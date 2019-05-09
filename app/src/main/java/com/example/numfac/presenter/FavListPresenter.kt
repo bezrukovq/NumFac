@@ -17,15 +17,7 @@ class FavListPresenter(private val model: NumFacModel, val router: Router) : Mvp
 
      fun setDateList() {
         CoroutineScope(Dispatchers.IO).launch {
-            val request = model.getFavDateList()
-            withContext(Dispatchers.Main) {
-                val response = request?.await()
-                if (response != null) {
-                    if (response.isSuccessful) {
-                        response.body()?.let { viewState.showDateList(it) }
-                    }
-                }
-            }
+            viewState.showDateList(model.getFavDateList())
         }
     }
 
