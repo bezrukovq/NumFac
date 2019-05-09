@@ -23,7 +23,8 @@ import javax.inject.Inject
 @SuppressLint("Registered")
 class RecyclerFragment : MvpAppCompatFragment(), DateListView {
     //hz kak v dagger
-    var recyclerAdapter = RecyclerAdapter { onItemClick(it) }
+    var recyclerAdapter = RecyclerAdapter {
+        onItemClick(it) }
 
     @Inject
     @InjectPresenter

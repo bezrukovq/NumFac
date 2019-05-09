@@ -4,13 +4,12 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.Query
 import com.example.numfac.entity.DateDB
-import io.reactivex.Single
 
 @Dao
 interface DateDAO {
 
     @Query("select * from date")
-    fun getAllFavDates(): Single<List<DateDB>>
+    fun getAllFavDates(): List<DateDB>
 
     @Insert
     fun insert(dateDB: DateDB)

@@ -145,7 +145,7 @@ empty-blocks:
 exceptions:
   active: true
   TooGenericExceptionCaught:
-    active: true
+    active: false
     exceptions:
      - ArrayIndexOutOfBoundsException
      - Error

@@ -1,9 +1,9 @@
 package com.example.numfac.di.module
 
+import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
-import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import javax.inject.Named
 import javax.inject.Singleton
@@ -18,14 +18,14 @@ class NetModule {
 
     @Provides
     @Singleton
-    fun provideRxJava2CallAdapterFactory(): RxJava2CallAdapterFactory =
-        RxJava2CallAdapterFactory.create()
+    fun provideCallAdapterFactory(): CoroutineCallAdapterFactory =
+        CoroutineCallAdapterFactory()
 
     @Provides
     @Singleton
     fun provideRetrofit(
         converterFactory: GsonConverterFactory,
-        callAdapterFactory: RxJava2CallAdapterFactory,
+        callAdapterFactory: CoroutineCallAdapterFactory ,
         @Named(URL) baseUrl: String
     ): Retrofit =
         Retrofit.Builder()

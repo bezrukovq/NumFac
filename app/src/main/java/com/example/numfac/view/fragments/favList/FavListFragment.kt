@@ -57,7 +57,7 @@ class FavListFragment : MvpAppCompatFragment(), FavListView {
     override fun showDateList(dataList: List<DateDB>) {
         favListAdapter.favList = dataList
         favListAdapter.notifyDataSetChanged()
-        if (favListAdapter.favList.size == 0)
+        if (favListAdapter.favList.isEmpty())
             Toast.makeText(this.context, "You haven't liked anything yet", Toast.LENGTH_LONG).show()
     }
 }

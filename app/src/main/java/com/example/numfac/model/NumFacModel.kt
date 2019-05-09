@@ -3,28 +3,29 @@ package com.example.numfac.model
 import com.example.numfac.entity.Date
 import com.example.numfac.entity.DateDB
 import com.example.numfac.model.DB.DateRepository
-import io.reactivex.Single
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.schedulers.Schedulers
+import kotlinx.coroutines.Deferred
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import retrofit2.Response
 import java.util.*
 
-class NumFacModel(val numFacApiService: NumFacApiService,val dateRepository: DateRepository) {
+class NumFacModel(val numFacApiService: NumFacApiService, val dateRepository: DateRepository) {
 
     private var curNumber = 0
 
-    fun getFavDateList(): Single<List<DateDB>>? =
+    suspend fun getFavDateList(): List<DateDB> =
         dateRepository.getAllDates()
 
-    fun addToFavList(dateDB: DateDB) =
-        dateRepository.addDate(dateDB)?.subscribe()
+    suspend fun addToFavList(dateDB: DateDB) =
+        dateRepository.addDate(dateDB)
 
-    fun deleteFromFavList(dateDB: DateDB) =
-        dateRepository.deleteDate(dateDB)?.subscribe()
+    suspend fun deleteFromFavList(dateDB: DateDB) =
+        dateRepository.deleteDate(dateDB)
 
-    fun getDateInfo(numDate: Int): Single<Date> =
-        numFacApiService.getDateInfo(numDate)
-            .observeOn(AndroidSchedulers.mainThread())
-            .subscribeOn(Schedulers.io())
+    suspend fun getDateInfo(numDate: Int): Deferred<Response<Date>> =
+        withContext(Dispatchers.IO) {
+            numFacApiService.getDateInfo(numDate)
+        }
 
     fun getDateList(): ArrayList<Int> {
         val list = ArrayList<Int>()

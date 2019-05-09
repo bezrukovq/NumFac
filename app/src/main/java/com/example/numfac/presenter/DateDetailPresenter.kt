@@ -1,25 +1,28 @@
 package com.example.numfac.presenter
 
-import android.annotation.SuppressLint
 import com.arellomobile.mvp.InjectViewState
 import com.arellomobile.mvp.MvpPresenter
 import com.example.numfac.entity.DateDB
 import com.example.numfac.model.NumFacModel
 import com.example.numfac.view.fragments.DateView
-import io.reactivex.rxkotlin.subscribeBy
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
 
 @InjectViewState
 class DateDetailPresenter(private val model: NumFacModel) : MvpPresenter<DateView>() {
 
     var isLiked = false
 
-    fun saveToFav(dateDB: DateDB) =
+    suspend fun saveToFav(dateDB: DateDB) =
         model.addToFavList(dateDB)
 
-    fun deleteFromFav(dateDB: DateDB) =
+    suspend fun deleteFromFav(dateDB: DateDB) =
         model.deleteFromFavList(dateDB)
 
-    fun likePressed(dateDB: DateDB) {
+    suspend fun likePressed(dateDB: DateDB) {
         if (!isLiked) {
             isLiked = true
             saveToFav(dateDB)
@@ -31,24 +34,32 @@ class DateDetailPresenter(private val model: NumFacModel) : MvpPresenter<DateVie
         }
     }
 
-    @SuppressLint("CheckResult")
     fun getDateInfo(numDate: Int?) {
         if (numDate != null) {
-            model.getDateInfo(numDate)
-                .doOnSubscribe { viewState.showProgress() }
-                .doAfterTerminate { viewState.hideProgress() }
-                .subscribeBy(onSuccess = {
-                    viewState.showDate(it)
-                    viewState.showMonth(it)
-                    viewState.showFact(it)
-                }, onError = {
-                    viewState.showError(it.message)
-                })
+            CoroutineScope(Dispatchers.IO).launch {
+                val request = model.getDateInfo(numDate)
+                withContext(Dispatchers.Main) {
+                    try {
+                        val response = request.await()
+                        if (response.isSuccessful) {
+                            response.body()?.let {
+                                viewState.showDate(it)
+                                viewState.showMonth(it)
+                                viewState.showFact(it)
+                            }
+                        } else {
+                            viewState.showError(response.errorBody().toString())
+                        }
+                    } catch (e: HttpException) {
+                        viewState.showError(e.message())
+                    }
+                }
+            }
         }
     }
 
     fun showCached(text: String) {
-        isLiked=true
+        isLiked = true
         viewState.showCached(text)
     }
 

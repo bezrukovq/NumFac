@@ -9,6 +9,8 @@ import com.arellomobile.mvp.MvpAppCompatFragment
 import com.arellomobile.mvp.presenter.InjectPresenter
 import com.arellomobile.mvp.presenter.ProvidePresenter
 import com.example.numfac.R
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import com.example.numfac.di.component.DaggerDateComponent
 import com.example.numfac.di.module.DateModule
 import com.example.numfac.entity.Date
@@ -16,6 +18,7 @@ import com.example.numfac.entity.DateDB
 import com.example.numfac.presenter.DateDetailPresenter
 import com.example.numfac.view.MainActivity
 import kotlinx.android.synthetic.main.fragment_number_details.*
+import kotlinx.coroutines.CoroutineScope
 import javax.inject.Inject
 
 class DateDetailsFragment : MvpAppCompatFragment(), DateView {
@@ -43,11 +46,17 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (savedInstanceState == null) {
-            img_like.setOnClickListener { dateDetailPresenter.likePressed(DateDB(tv_fact.text.toString())) }
+            img_like.setOnClickListener { initLikePressed() }
             val cached = arguments?.getBoolean(ARG_CACHED)
             val textCached = arguments?.getString(ARG_TEXT).toString()
             val numRequest = arguments?.getInt("number")
             dateDetailPresenter.checkCached(cached, textCached, numRequest)
+        }
+    }
+
+    private fun initLikePressed() {
+        CoroutineScope(Dispatchers.IO).launch {
+            dateDetailPresenter.likePressed(dateDB = DateDB(tv_fact.text.toString()))
         }
     }
 
@@ -56,7 +65,6 @@ class DateDetailsFragment : MvpAppCompatFragment(), DateView {
 
     override fun like() {
         img_like.setImageResource(R.drawable.ic_favorite_selected)
-        Toast.makeText(this.context, "LIKED", Toast.LENGTH_LONG).show()
     }
 
     override fun showCached(text: String) {

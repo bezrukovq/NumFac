@@ -4,7 +4,7 @@ import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.example.numfac.entity.DateDB
 
-@Database(entities = arrayOf(DateDB::class), version = 1)
+@Database(entities = [DateDB::class], version = 1)
 abstract class AppDataBase : RoomDatabase() {
     abstract fun dateDao(): DateDAO
 }
